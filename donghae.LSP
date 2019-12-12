@@ -1,25 +1,5 @@
 ;//-----------------------------------------------------
-
-(defun draw()
-   (setvar "blipmode" 0)
-   (setq p1 (getpoint "\nStart Point:")
-         p2 (getcorner p1 "\nCorner Point:")
-         p3 (list (car p1)(cadr p2))
-         p4 (list (car p2)(cadr p1))
-   )
-)
-
-(defun c:bx(/ p1 p2 p3 p4)
-  (draw)
-  (command "pline" p1 p3 p2 p4 "c")
-  (command "line" p1 p2 "")
-  (command "line" p3 p4 "")
-
-  (command "fillet" "p" "r" 20 (ssget))
-  (command "offset" 20)
-)
-
-;//-----------------------------------------------------
+; LINE, COLOR, STYLE
 (defun c:r1() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "CONTINUOUS" "") )
 (defun c:r2() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L2" "") )
 (defun c:r3() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L3" "") )
@@ -85,16 +65,16 @@
 
 (defun dtr (a)(* pi (/ a 180.0)))
 
-(defun c:RD(/ k ss1 ss2 ed1 ent stp edp ang1 en2 ed2)
+(defun c:LR(/ k ss1 ss2 ed1 ent stp edp ang1 en2 ed2)
 ;->*error* start
  (defun *error* (msg)(princ "error: ")(princ msg)
  (redraw (car ss1) 4)
  (princ))
 ;-<*error* end
   (setvar "cmdecho" 0)
-  (prompt "\n기준선각도로 text,mtext,block 다중선택회전하기..")
+  (prompt "\nARRANGE <text,mtext,block> ...")
   (setq k 0 ss1 nil ss2 nil)
-  (while (= ss1 nil) (setq ss1 (entsel "\n기준라인을 선택 :")))
+  (while (= ss1 nil) (setq ss1 (entsel "\nSELECT THE LINE :")))
   (redraw (car ss1) 3)
   (setq ed1 (entget (car ss1))
         ent (cdr (assoc 0 ed1)))
@@ -110,7 +90,7 @@
   (if (and (> ang1 (dtr 90)) (<= ang1 (dtr 270)))
            (setq ang1 (angle edp stp))
   );if
-  (prompt "\n회전할객체선택<text,mtext,block> :")
+  (prompt "\nSELECT <text,mtext,block> :")
   (command "undo" "be")
   (setq ss2 (ssget (list (cons 0 "text,mtext,insert"))))
   (redraw (car ss1) 4)
@@ -205,49 +185,6 @@ VtxList
 																		                   
 ;//-----------------------------------------------------
 ;;;=======================[ BreakObjects.lsp ]==============================
-;;; Author: Copyright?2006-2008 Charles Alan Butler 
-;;; Contact @  www.TheSwamp.org
-;;; Version:  2.1  Nov. 20,2008
-;;; Purpose: Break All selected objects
-;;;    permitted objects are lines, lwplines, plines, splines,
-;;;    ellipse, circles & arcs 
-;;;                            
-;;;  Function  c:MyBreak -       DCL for selecting the routines
-;;;  Function  c:BreakAll -      Break all objects selected with each other
-;;;  Function  c:BreakwObject  - Break many objects with a single object
-;;;  Function  c:BreakObject -   Break a single object with other objects 
-;;;  Function  c:BreakWith -     Break selected objects with other selected objects
-;;;  Function  c:BreakTouching - Break objects touching selected objects
-;;;  Function  c:BreakSelected - Break selected objects with any objects that touch it 
-;;;  Revision 1.8 Added Option for Break Gap greater than zero
-;;;  NEW r1.9  c:BreakWlayer -   Break objects with objects on a layer
-;;;  NEW r1.9  c:BreakWithTouching - Break touching objects with selected objects
-;;;  Revision 2.0 Fixed a bug when point to break is at the end of object
-;;;  Revision 2.1 Fixed another bug when point to break is at the end of object
-;;;
-;;;
-;;;  Function  break_with  - main break function called by all others and
-;;;                          returns a list of new enames, see c:BreakAll
-;;;                          for an example of using the return list
-;;;
-;;; Requirements: objects must have the same z-value
-;;; Restrictions: Does not Break objects on locked layers 
-;;; Returns:  none
-;;;
-;;;=====================================================================
-;;;   THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT EXPRESS OR IMPLIED     ;
-;;;   WARRANTY.  ALL IMPLIED WARRANTIES OF FITNESS FOR ANY PARTICULAR  ;
-;;;   PURPOSE AND OF MERCHANTABILITY ARE HEREBY DISCLAIMED.            ;
-;;;                                                                    ;
-;;;  You are hereby granted permission to use, copy and modify this    ;
-;;;  software without charge, provided you do so exclusively for       ;
-;;;  your own use or for use by others in your organization in the     ;
-;;;  performance of their normal duties, and provided further that     ;
-;;;  the above copyright notice appears in all copies and both that    ;
-;;;  copyright notice and the limited warranty and restricted rights   ;
-;;;  notice below appear in all supporting documentation.              ;
-;;;=====================================================================
-
 
 ;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ;;               M A I N   S U B R O U T I N E                   
@@ -272,16 +209,17 @@ VtxList
 ;;                S U B   F U N C T I O N S                      
 ;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  ;;  return T if entity is on a locked layer
-  (defun onlockedlayer (ename / entlst)
-    (setq entlst (tblsearch "LAYER" (cdr (assoc 8 (entget ename)))))
-    (= 4 (logand 4 (cdr (assoc 70 entlst))))
-  )
+    ;;  return T if entity is on a locked layer
+    (defun onlockedlayer (ename / entlst)
+      (setq entlst (tblsearch "LAYER" (cdr (assoc 8 (entget ename)))))
+      (= 4 (logand 4 (cdr (assoc 70 entlst))))
+    )
 
-  ;;  return a list of objects from a selection set
-;|  (defun ssget->vla-list (ss)
+    ;;  return a list of objects from a selection set
+    ;|  (defun ssget->vla-list (ss)
     (mapcar 'vlax-ename->vla-object (vl-remove-if 'listp (mapcar 'cadr (ssnamex ss ))))
   )|;
+
   (defun ssget->vla-list (ss / i ename allobj) ; this is faster, changed in ver 1.7
        (setq i -1)
        (while (setq  ename (ssname ss (setq i (1+ i))))
@@ -297,20 +235,20 @@ VtxList
     (reverse new)
   )
   
-;;=====================================
-;;  return a list of intersect points  
-;;=====================================
-(defun get_interpts (obj1 obj2 / iplist)
-  (if (not (vl-catch-all-error-p
-             (setq iplist (vl-catch-all-apply
-                            'vlax-safearray->list
-                            (list
-                              (vlax-variant-value
-                                (vla-intersectwith obj1 obj2 acextendnone)
-                              ))))))
-    iplist
+  ;;=====================================
+  ;;  return a list of intersect points  
+  ;;=====================================
+  (defun get_interpts (obj1 obj2 / iplist)
+    (if (not (vl-catch-all-error-p
+               (setq iplist (vl-catch-all-apply
+                              'vlax-safearray->list
+                              (list
+                                (vlax-variant-value
+                                  (vla-intersectwith obj1 obj2 acextendnone)
+                                ))))))
+      iplist
+    )
   )
-)
 
 
 ;;========================================
@@ -686,42 +624,6 @@ VtxList
     )
   )
 
-  ;;===========================================================================
-  ;;  get all objects touching entities in the sscross                         
-  ;;  limited obj types to "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"
-  ;;  returns a list of enames
-  ;;===========================================================================
-  (defun gettouching (sscros / ss lst lstb lstc objl)
-    (and
-      (setq lstb (vl-remove-if 'listp (mapcar 'cadr (ssnamex sscros)))
-            objl (mapcar 'vlax-ename->vla-object lstb)
-      )
-      (setq
-        ss (ssget "_A" (list (cons 0 "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE")
-                             (cons 410 (getvar "ctab"))))
-      )
-      (setq lst (vl-remove-if 'listp (mapcar 'cadr (ssnamex ss))))
-      (setq lst (mapcar 'vlax-ename->vla-object lst))
-      (mapcar
-        '(lambda (x)
-           (mapcar
-             '(lambda (y)
-                (if (not
-                      (vl-catch-all-error-p
-                        (vl-catch-all-apply
-                          '(lambda ()
-                             (vlax-safearray->list
-                               (vlax-variant-value
-                                 (vla-intersectwith y x acextendnone)
-                               ))))))
-                  (setq lstc (cons (vlax-vla-object->ename x) lstc))
-                )
-              ) objl)
-         ) lst)
-    )
-    lstc
-  )
-
 
 
 ;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -815,369 +717,6 @@ VtxList
 )
 
 
-;;==========================================
-;;  Break objects with objects on a layer   
-;;==========================================
-;;  New 08/01/2008
-(defun c:BreakWlayer (/ cmd ss1 ss2 tmp lay)
-
-  (command "_.undo" "_begin")
-  (setq cmd (getvar "CMDECHO"))
-  (setvar "CMDECHO" 0)
-  (or Bgap (setq Bgap 0)) ; default
-  (initget 4) ; no negative numbers
-  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
-    (setq Bgap tmp)
-  )
-  ;;  get objects to break
-  (prompt "\n***  Select single object for break layer:  ***")
-  
-  (if (and (setq ss2 (ssget "+.:E:S" '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
-           (setq lay (assoc 8 (entget (ssname ss2 0))))
-           (setq ss2 (ssget "_X" (list
-                                   '(0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE")
-                                   lay (cons 410 (getvar "ctab")))))
-           (not (prompt "\nSelect object(s) to break & press enter: "))
-           (setq ss1 (ssget (list
-                              '(0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE")
-                              (cons 8 (strcat "~" (cdr lay))))))
-      )
-    (break_with ss1 ss2 nil Bgap) ; ss1break ss2breakwith (flag nil = not to break with self)
-  )
-
-  (setvar "CMDECHO" cmd)
-  (command "_.undo" "_end")
-  (princ)
-)
-
-
-;;======================================================
-;;  Break selected objects with other selected objects  
-;;======================================================
-(defun c:BreakWith (/ cmd ss1 ss2 tmp)
-
-  (command "_.undo" "_begin")
-  (setq cmd (getvar "CMDECHO"))
-  (setvar "CMDECHO" 0)
-  (or Bgap (setq Bgap 0)) ; default
-  (initget 4) ; no negative numbers
-  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
-    (setq Bgap tmp)
-  )
-  ;;  get objects to break
-  (prompt "\nBreak selected objects with other selected objects.")
-  (prompt "\nSelect object(s) to break & press enter: ")
-  (if (and (setq ss1 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
-           (not (ssredraw ss1 3))
-           (not (prompt "\n***  Select object(s) to break with & press enter:  ***"))
-           (setq ss2 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
-           (not (ssredraw ss1 4))
-      )
-    (break_with ss1 ss2 nil Bgap) ; ss1break ss2breakwith (flag nil = not to break with self)
-  )
-
-  (setvar "CMDECHO" cmd)
-  (command "_.undo" "_end")
-  (princ)
-)
-
-
-
-;;=============================================
-;;  Break objects touching selected objects    
-;;=============================================
-
-(defun c:BreakTouching (/ cmd ss1 ss2 tmp)
-
-  (command "_.undo" "_begin")
-  (setq cmd (getvar "CMDECHO"))
-  (setvar "CMDECHO" 0)
-  (setq ss1 (ssadd))
-  (or Bgap (setq Bgap 0)) ; default
-  (initget 4) ; no negative numbers
-  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
-    (setq Bgap tmp)
-  )
-  ;;  get objects to break
-  (prompt "\nBreak objects touching selected objects.")
-  (if (and (not (prompt "\nSelect object(s) to break & press enter: "))
-           (setq ss2 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
-           (mapcar '(lambda (x) (ssadd x ss1)) (gettouching ss2))
-      )
-    (break_with ss1 ss2 nil Bgap) ; ss1break ss2breakwith (flag nil = not to break with self)
-  )
-
-  (setvar "CMDECHO" cmd)
-  (command "_.undo" "_end")
-  (princ)
-)
-
-
-
-;;=================================================
-;;  Break touching objects with selected objects   
-;;=================================================
-;;  New 08/01/2008
-(defun c:BreakWithTouching (/ cmd ss1 ss2 tmp)
-
-  (command "_.undo" "_begin")
-  (setq cmd (getvar "CMDECHO"))
-  (setvar "CMDECHO" 0)
-  (setq ss1 (ssadd))
-  (or Bgap (setq Bgap 0)) ; default
-  (initget 4) ; no negative numbers
-  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
-    (setq Bgap tmp)
-  )
-
-  ;;  get objects to break
-  (prompt "\nBreak objects touching selected objects.")
-  (prompt "\nSelect object(s) to break with & press enter: ")
-  (if (and (setq ss2 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
-           (setq tlst (gettouching ss2))
-      )
-    (progn
-      (setq tlst (vl-remove-if '(lambda (x)(ssmemb x ss2)) tlst)) ;  remove if in picked ss
-      (mapcar '(lambda (x) (ssadd x ss1)) tlst) ; convert to a selection set
-      (break_with ss1 ss2 nil Bgap) ; ss1break ss2breakwith (flag nil = not to break with self)
-    )
-  )
-
-  (setvar "CMDECHO" cmd)
-  (command "_.undo" "_end")
-  (princ)
-)
-
-
-;;==========================================================
-;;  Break selected objects with any objects that touch it   
-;;==========================================================
-
-
-(defun c:BreakSelected (/ cmd ss1 ss2 tmp)
-  
-  (command "_.undo" "_begin")
-  (setq cmd (getvar "CMDECHO"))
-  (setvar "CMDECHO" 0)
-  (setq ss1 (ssadd))
-  (or Bgap (setq Bgap 0)) ; default
-  (initget 4) ; no negative numbers
-  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
-    (setq Bgap tmp)
-  )
-  ;;  get objects to break
-  (prompt "\nBreak selected objects with any objects that touch it.")
-  (if (and (not (prompt "\nSelect object(s) to break with touching & press enter: "))
-           (setq ss2 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
-           (mapcar '(lambda (x) (ssadd x ss1)) (gettouching ss2))
-      )
-    (break_with ss2 ss1 nil Bgap) ; ss2break ss1breakwith (flag nil = not to break with self)
-  )
-
-  (setvar "CMDECHO" cmd)
-  (command "_.undo" "_end")
-  (princ)
-)
-
-;; ***************************************************
-;;     Function to create a dcl support file if it    
-;;       does not exist                               
-;;     Usage : (create_dcl "file name")               
-;;     Returns : T if successful else nil             
-;; ***************************************************
-(defun create_Breakdcl (fname / acadfn dcl-rev-check)
-  ;;=======================================
-  ;;      check revision date Routine          
-  ;;=======================================
-  (defun dcl-rev-check (fn / rvdate ln lp)
-    ;;  revision flag must match exactly and must
-    ;;  begin with //
-    (setq rvflag "//  Revision Control 05/12/2008@14:11" )
-    (if (setq fn (findfile fn))
-      (progn ; check rev date
-        (setq lp 5) ; read 4 lines
-        (setq fn (open fn "r")) ; open file for reading
-        (while (> (setq lp (1- lp)) 0)
-          (setq ln (read-line fn)) ; get a line from file
-          (if (vl-string-search rvflag ln)
-            (setq lp 0)
-          )
-        )
-        (close fn) ; close the open file handle
-        (if (= lp -1)
-          nil ; no new dcl needed
-          t ; flag to create new file
-        )
-      )
-      t ; flag to create new file
-    )
-  )
-  (if (null(wcmatch (strcase fname) "*`.DCL"))
-    (setq fname (strcat fname ".DCL"))
-  )
-  (if (dcl-rev-check fname)
-    ;; create dcl file in same directory as ACAD.PAT  
-    (progn
-      (setq acadfn (findfile "ACAD.PAT")
-            fn (strcat (substr acadfn 1 (- (strlen acadfn) 8))fname)
-            fn (open fn "w")
-      )
-      (foreach x (list
-                   "// WARNING file will be recreated if you change the next line"
-                   rvflag
-                   "//BreakAll.DCL"
-                   "BreakDCL : dialog { label = \"[ Break All or Some by CAB  v2.1 ]\";"
-                   "  : text { label = \"--=<  Select type of Break Function needed  >=--\"; "
-                   "           key = \"tm\"; alignment = centered; fixed_width = true;}"
-                   "    spacer_1;"
-                   "    : button { key = \"b1\"; mnemonic = \"T\";  alignment = centered;"
-                   "               label = \"Break all objects selected with each other\";} "
-                   "    : button { key = \"b2\"; mnemonic = \"T\"; alignment = centered;"
-                   "               label = \"Break selected objects with other selected objects\";}"
-                   "    : button { key = \"b3\"; mnemonic = \"T\";  alignment = centered;"
-                   "               label = \" Break selected objects with any  objects that touch it\";}"
-                   "    spacer_1;"
-                   "  : row { spacer_0;"
-                   "    : edit_box {key = \"gap\" ; width = 8; mnemonic = \"G\"; label = \"Gap\"; fixed_width = true;}"
-                   "    : button { label = \"Help\"; key = \"help\"; mnemonic = \"H\"; fixed_width = true;} "
-                   "    cancel_button;"
-                   "    spacer_0;"
-                   "  }"
-                   "}"
-                  ) ; endlist
-        (princ x fn)
-        (write-line "" fn)
-      ) ; end foreach
-      (close fn)
-      (setq acadfn nil)
-      (alert (strcat "\nDCL file created, please restart the routine"
-               "\n again if an error occures."))
-      t ; return True, file created
-    )
-    t ; return True, file found
-  )
-) ; end defun
-
-
-;;==============================
-;;     BreakAll Dialog Routine  
-;;==============================
-(defun c:MyBreak(/ dclfile dcl# RunDCL BreakHelp cmd txt2num)
-   ;;  return number or nil
-  (defun txt2num (txt / num)
-    (if txt
-    (or (setq num (distof txt 5))
-        (setq num (distof txt 2))
-        (setq num (distof txt 1))
-        (setq num (distof txt 4))
-        (setq num (distof txt 3))
-    )
-    )
-    (if (numberp num)
-      num
-    )
-  )
-  (defun mydonedialog (flag)
-    (setq DCLgap (txt2num (get_tile "gap")))
-    (done_dialog flag)
-  )
-  (defun RunDCL (/ action)
-    (or DCLgap (setq DCLgap 0)) ; error trap value
-    (action_tile "b1" "(mydonedialog 1)")
-    (action_tile "b2" "(mydonedialog 2)")
-    (action_tile "b3" "(mydonedialog 3)")
-    (action_tile "gap" "(setq DCLgap (txt2num value$))")
-    (set_tile "gap" (rtos DCLgap))
-    (action_tile "help" "(BreakHelp)")
-    (action_tile "cancel" "(done_dialog 0)")
-    (setq action (start_dialog))
-    (or DCLgap (setq DCLgap 0)) ; error trap value
-    (setq DCLgap (max DCLgap 0)) ; nu negative numbers
-    
-    (cond
-      ((= action 1) ; BreakAll
-         (command "_.undo" "_begin")
-  ;;  get objects to break
-  (prompt "\nSelect objects to break with each other & press enter: ")
-  (if (setq ss (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
-     (setq NewEnts (Break_with ss ss nil DCLgap) ; ss2break ss2breakwith (flag nil = not to break with self)
-           ; AllEnts (append NewEnts (vl-remove-if 'listp (mapcar 'cadr (ssnamex ss)))
-           )
-  )
-  (command "_.undo" "_end")
-  (princ)
-       )
-      
-      ((= action 2) ; BreakWith
-         ;;  get objects to break
-  (prompt "\nBreak selected objects with other selected objects.")
-  (prompt "\nSelect object(s) to break & press enter: ")
-  (if (and (setq ss1 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
-           (not (ssredraw ss1 3))
-           (not (prompt "\n***  Select object(s) to break with & press enter:  ***"))
-           (setq ss2 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
-           (not (ssredraw ss1 4))
-      )
-    (break_with ss1 ss2 nil DCLgap) ; ss1break ss2breakwith (flag nil = not to break with self)
-  )
-
-       )
-      ((= action 3) ; BreakSelected
-  (setq ss1 (ssadd))
-  ;;  get objects to break
-  (prompt "\nBreak selected objects with any objects that touch it.")
-  (if (and (not (prompt "\nSelect object(s) to break with touching & press enter: "))
-           (setq ss2 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
-           (mapcar '(lambda (x) (ssadd x ss1)) (gettouching ss2))
-      )
-    (break_with ss2 ss1 nil DCLgap) ; ss2break ss1breakwith (flag nil = not to break with self)
-  )
-       )
-    )
-  )
-  (defun BreakHelp ()
-    (alert
-      (strcat
-        "BreakAll.lsp				       (c) 2007-2008 Charles Alan Butler\n\n"
-        "This LISP routine will break objects based on the routine you select.\n"
-        "It will not break objects on locked layers and objects must have the same z-value.\n"
-        "Object types are limited to LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE\n"
-        "BreakAll -      Break all objects selected with each other\n"
-        "BreakwObject  - Break many objects with a single object\n"
-        "BreakObject -   Break a single object with many objects \n"
-        "BreakWith -     Break selected objects with other selected objects\n"
-        "BreakTouching - Break objects touching selected objects\n"
-        "BreakSelected - Break selected objects with any objects that touch it\n"
-        " The Gap distance is the total opening created.\n"
-        "You may run each routine by entering the function name at the command line.\n"
-        "For updates & comments contact Charles Alan Butler AKA CAB at TheSwamp.org.\n")
-    )
-  )
-  
-  ;;================================================================
-  ;;                    Start of Routine                            
-  ;;================================================================
-  (vl-load-com)
-  (setq cmd (getvar "CMDECHO"))
-  (setvar "CMDECHO" 0)
-  (setq dclfile "BreakAll.dcl")
-  (cond
-    ((not (create_Breakdcl dclfile))
-     (prompt (strcat "\nCannot create " dclfile "."))
-    )
-    ((< (setq dcl# (load_dialog dclfile)) 0)
-     (prompt (strcat "\nCannot load " dclfile "."))
-    )
-    ((not (new_dialog "BreakDCL" dcl#))
-     (prompt (strcat "\nProblem with " dclfile "."))
-    )
-    ((RunDCL))      ; No DCL problems: fire it up
-  )
-  (and cmd (setvar "CMDECHO" cmd))
-  (princ)
-)
-(prompt "Break routines loaded, Enter Mybreak to run.")
-(princ)
 
 
 ;//-----------------------------------------------------
@@ -1212,6 +751,7 @@ VtxList
 );of repeat
 (princ)
 ) ;of defun
+
 (defun C:RRV(/ ents nent ans w72 xpnt count ent old10 old11 old72 new10 new11 new72)
 (setq ents (ssget))
 (setq nent (sslength ents))
@@ -1320,79 +860,9 @@ VtxList
     (princ)
 );defun
 
-;//-----------------------------------------------------
-; 글자 똑같이 만들기 
-;//-----------------------------------------------------
-(defun c:tt (/ SS EE EO EL NLA NO E ZO ZL OLD NEW STL NLB STL1 STL2)
-  ;(princ (strcat "\n\tTSC, Version " version "," logo ""))
-  
-  (prompt "\ntext를 선택하세요 : ")
-  (setq SS (ssget))
-  (while SS
-  
-  (RMT)
-  (setq STL1 (cdr (assoc 7 (entget (ssname SS 0)))))
-  (setq EO SS)
-  (prompt "\n원하는 text를 선택하세요 :")
-  (setq EL (ssget))
-  (RMT)
-  (setq STL2 (cdr (assoc 7 (entget (ssname EL 0)))))
-  (if (/= STL1 STL2)
-      (progn
-        (setq NLA (cdr (assoc 7 (entget (ssname EL 0)))))
-        (SETQ NO 0)
-        (while (setq E (ssname EO NO))
-               (setq      ZO (ENTGET E))
-               (setq      OLD (ASSOC 7 ZO))
-               (setq      NEW (CONS (CAR OLD) NLA))
-               (setq      ZL (SUBST NEW OLD ZO))
-               (ENTMOD ZL)
-               (SETQ NO (1+ NO))
-        )
-      )
-  )
-  (setq NLA (cdr (assoc 1 (entget (ssname EL 0)))))
-  (SETQ NO 0)
-  (WHILE (SETQ E (SSNAME EO NO))
-         (SETQ ZO (ENTGET E))
-         (SETQ OLD (ASSOC 1 ZO))
-         (SETQ NEW (CONS (CAR OLD) NLA))
-         (SETQ ZL (SUBST NEW OLD ZO)
-         )
-         (ENTMOD ZL)
-         (SETQ NO (1+ NO))
-  )
-  (prompt "\n작업을 종료하려면 enter. ")
-  (prompt "\ntext를 선택하세요 : ")
-  (setq SS (ssget))
-  )
-
-  (princ)
-)
-
-(princ "\n\t 선택된 text를 원하는 text로 바꿈. Command: tt")
-(princ)
-
-(defun RMT (/ k e ll)
-  (setq k 0)
-  (repeat (sslength ss)
-    (setq e (entget (ssname ss k)))
-    (setq ll (cdr (assoc 0 e)))
-    (if (/= ll "TEXT")
-      (ssdel (ssname ss k) ss) (setq k (1+ k)))
-  )
-)
-
 
 ;;=====================================================================
-;  중심선 그리기
-;    * 원 또는 아크의 중심선 그리기
-;    * 사각형(폴리라인 구성)의 중심선 그리기
-;  
-;  Modify : - 중심선 연장 길이 설정 기능 추가 by nadau (2009.08.03)
-;
-
-
+;  원, 아크, 사각형(Polyline) 의 중심선 그리기
 (defun c:cent(/ os ss k ent elist plist VtxList cenp rad po1 po2 po3 po4 dam ext la cenx ceny dix diy plusc plusx plusy paa)
 
   (setvar "cmdecho" 0)   
@@ -1423,15 +893,15 @@ VtxList
    (setq dam (* 2 rad)
          plusc (* (/ dam 2) (/ paa 100.0) )
          ext (+ plusc rad)
-   ); end setq
+   )
    
    (setq po1 (polar cenp pi ext) 
          po2 (polar cenp 0 ext)    
          po3 (polar cenp (/ pi 2) ext) 
          po4 (polar cenp (+ (/ pi 2) pi) ext) 
-   ); end setq 
+   )
    
-  ); end progn
+  )
   
   (progn
       (setq VtxList (GetPolyVtx elist)
@@ -1448,7 +918,7 @@ VtxList
           po2 (polar cen 0 (+ dix plusx))
           po3 (polar cen (+ (/ pi 2) pi) (+ diy plusy))
           po4 (polar cen (/ pi 2) (+ diy plusy)))
-  ); end progn
+  )
   
   ); end if
   
@@ -1468,8 +938,6 @@ VtxList
   (princ)
 ) ;defun end
 
-
-;
 ; [[[ SubRoutine ]]]
 
 (defun DrawCenterLine(p1 p2 p3 p4 / cla)
@@ -1509,12 +977,16 @@ VtxList
   ) VtxList
 )
 
-;;
-;; [[[ End SubRoutine ]]]
 
 
+
+
+
+
+
+
+;//-----------------------------------------------------
 ;; A4 size 연속 출력
-
 (setq plotername "SINDOH D410 Series PCL"); 출력할 프린터이름
 (setq ctbname "wsyang.ctb") ; 출력할 CTB 종류
 (setq papername "A4") ; 용지 크기
@@ -1562,3 +1034,24 @@ VtxList
     (setq cnt (1+ cnt))
   )
 ) 
+
+;//-----------------------------------------------------
+; DRAW HATCH
+(defun draw()
+   (setvar "blipmode" 0)
+   (setq p1 (getpoint "\nStart Point:")
+         p2 (getcorner p1 "\nCorner Point:")
+         p3 (list (car p1)(cadr p2))
+         p4 (list (car p2)(cadr p1))
+   )
+)
+
+(defun c:bx(/ p1 p2 p3 p4)
+  (draw)
+  (command "pline" p1 p3 p2 p4 "c")
+  (command "line" p1 p2 "")
+  (command "line" p3 p4 "")
+
+  (command "fillet" "p" "r" 20 (ssget))
+  (command "offset" 20)
+)
