@@ -1,0 +1,1564 @@
+;//-----------------------------------------------------
+
+(defun draw()
+   (setvar "blipmode" 0)
+   (setq p1 (getpoint "\nStart Point:")
+         p2 (getcorner p1 "\nCorner Point:")
+         p3 (list (car p1)(cadr p2))
+         p4 (list (car p2)(cadr p1))
+   )
+)
+
+(defun c:bx(/ p1 p2 p3 p4)
+  (draw)
+  (command "pline" p1 p3 p2 p4 "c")
+  (command "line" p1 p2 "")
+  (command "line" p3 p4 "")
+
+  (command "fillet" "p" "r" 20 (ssget))
+  (command "offset" 20)
+)
+
+;//-----------------------------------------------------
+(defun c:r1() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "CONTINUOUS" "") )
+(defun c:r2() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L2" "") )
+(defun c:r3() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L3" "") )
+(defun c:r4() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L4" "") )
+(defun c:r5() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L5" "") )
+(defun c:r6() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L6" "") )
+(defun c:r7() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L7" "") )
+
+(defun c:y1() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "CONTINUOUS" "") )
+(defun c:y2() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "L2" "") )
+(defun c:y3() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "L3" "") )
+(defun c:y4() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "L4" "") )
+(defun c:y5() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "L5" "") )
+(defun c:y6() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "L6" "") )
+(defun c:y7() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "L7" "") )
+
+(defun c:g1() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "CONTINUOUS" "") )
+(defun c:g2() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "L2" "") )
+(defun c:g3() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "L3" "") )
+(defun c:g4() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "L4" "") )
+(defun c:g5() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "L5" "") )
+(defun c:g6() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "L6" "") )
+(defun c:g7() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "L7" "") )
+
+(defun c:sb1() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "CONTINUOUS" "") )
+(defun c:sb2() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "L2" "") )
+(defun c:sb3() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "L3" "") )
+(defun c:sb4() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "L4" "") )
+(defun c:sb5() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "L5" "") )
+(defun c:sb6() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "L6" "") )
+(defun c:sb7() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "L7" "") )
+
+(defun c:b1() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "CONTINUOUS" "") )
+(defun c:b2() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "L2" "") )
+(defun c:b3() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "L3" "") )
+(defun c:b4() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "L4" "") )
+(defun c:b5() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "L5" "") )
+(defun c:b6() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "L6" "") )
+(defun c:b7() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "L7" "") )
+
+(defun c:p1() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "CONTINUOUS" "") )
+(defun c:p2() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "L2" "") )
+(defun c:p3() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "L3" "") )
+(defun c:p4() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "L4" "") )
+(defun c:p5() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "L5" "") )
+(defun c:p6() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "L6" "") )
+(defun c:p7() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "L7" "") )
+
+(defun c:w1() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "CONTINUOUS" "") )
+(defun c:w2() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "L2" "") )
+(defun c:w3() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "L3" "") )
+(defun c:w4() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "L4" "") )
+(defun c:w5() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "L5" "") )
+(defun c:w6() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "L6" "") )
+(defun c:w7() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "L7" "") )
+
+;//-----------------------------------------------------
+
+; 아키모아 운영진 "행복한하루"
+; http://cafe.daum.net/archimore
+; 기준선각도로 text,mtext,block 다중선택회전하기
+; 2007.07.26
+
+(defun dtr (a)(* pi (/ a 180.0)))
+
+(defun c:RD(/ k ss1 ss2 ed1 ent stp edp ang1 en2 ed2)
+;->*error* start
+ (defun *error* (msg)(princ "error: ")(princ msg)
+ (redraw (car ss1) 4)
+ (princ))
+;-<*error* end
+  (setvar "cmdecho" 0)
+  (prompt "\n기준선각도로 text,mtext,block 다중선택회전하기..")
+  (setq k 0 ss1 nil ss2 nil)
+  (while (= ss1 nil) (setq ss1 (entsel "\n기준라인을 선택 :")))
+  (redraw (car ss1) 3)
+  (setq ed1 (entget (car ss1))
+        ent (cdr (assoc 0 ed1)))
+  (cond ((= ent "LINE")
+         (setq stp (cdr (assoc 10 ed1))
+               edp (cdr (assoc 11 ed1))))
+        ((= ent "LWPOLYLINE")
+         (GetPolyVtx ed1)
+         (setq stp (car vtxlist) edp (cadr vtxlist)))
+  );cond
+
+  (setq ang1 (angle stp edp))
+  (if (and (> ang1 (dtr 90)) (<= ang1 (dtr 270)))
+           (setq ang1 (angle edp stp))
+  );if
+  (prompt "\n회전할객체선택<text,mtext,block> :")
+  (command "undo" "be")
+  (setq ss2 (ssget (list (cons 0 "text,mtext,insert"))))
+  (redraw (car ss1) 4)
+  (repeat (sslength ss2)
+    (setq en2 (ssname ss2 k)
+          ed2 (entget en2))
+    (entmod (subst (cons 50 ang1) (assoc 50 ed2) ed2))
+    (setq k (1+ k))
+  );repeat
+  (command "undo" "e")
+(princ)
+);defun
+
+(defun GetPolyVtx(EntList) ; 피라인의 정점 추출
+  (setq VtxList '())
+  (foreach x EntList
+   (if (= (car x) 10)
+    (setq VtxList (append VtxList (list (cdr x))))
+   )
+  )
+VtxList
+)
+
+;//-----------------------------------------------------        
+; 눈금 표시하는건데 안씀.
+(defun c:rer (/ _Line _Text e len ang  cp sp ep gap wid n lp txp txh)
+	(defun _Line (p1 p2)
+	  (entmakex (list (cons 0 "LINE")
+	                  (cons 10 p1)
+	                  (cons 11 p2))))
+																		
+	(defun _Text (pt hgt str j j1)
+	  (entmakex (list (cons 0 "TEXT")
+	                  (cons 10  pt)
+																			(cons 11 pt)
+	                  (cons 40 hgt)
+																			(cons 72 j)
+																			(cons 73 j1)
+	                  (cons 1  str))))
+																		
+ 	(setq txh (getvar 'Textsize))		;; txh 문자크기입니다.					
+
+ 	(setq e(entget(car(entsel "\n눈금을 표시할 라인 선택:"))))
+	(setq a10 (cdr(assoc 10 e)) a11 (cdr(assoc 11 e)))
+	(setq len(distance a10 a11) ang(angle a10 a11))
+	(if (or (= ang 0.0)(= ang pi))
+	     (progn (if (< (car a10)(car a11))(setq sp a10)(setq sp a11)))
+	     (progn (if (< (cadr a10)(cadr a11))(setq sp a10)(setq sp a11)))
+	)
+	
+	(setq divider (getint "\nEnter divider:"))
+	; (princ divider)
+ 	(setq cp sp)
+	(setq gap (/ len divider)  	;; gap 눈금 간격
+	        n 0  
+			wid 0 
+			lh1 30     ;; lh1 작은눈금
+			lh2 30     ;; lh2 큰눈금
+			tx1 50     ;; tx1 텍스트 정렬점(라인에서 떨어지는 간격)
+	)
+	; princ("")
+	(repeat(1+ (fix (/ len gap))) 
+		(cond 
+			((or (= ang 0.0)(= ang pi))
+	   			; (if (equal 0 (rem n 5)) (setq lp (polar cp(- ang 1.5708) lh2))(setq lp (polar cp (- ang 1.5708) lh1)))
+			)
+			( t
+	    		; (if (equal 0 (rem n 5)) (setq lp (polar cp(- ang 1.5708) lh2))(setq lp (polar cp (- ang 1.5708) lh1)))
+			)		
+		)	
+		(_LIne cp lp)
+		(cond 
+			((or (= ang 0.0)(= ang pi))
+	   			(if (equal 0 (rem n 5)) (setq lp (polar cp(+ ang 1.5708) lh2))(setq lp (polar cp (+ ang 1.5708) lh1)))
+	     		(setq txp(polar cp (+ ang 4.71239) tx1))	; 텍스트 그리기	
+				(_Text  txp txh (itoa n) 1 3)
+			)
+			( t
+	    		(if (equal 0 (rem n 5)) (setq lp (polar cp(+ ang 1.5708) lh2))(setq lp (polar cp (+ ang 1.5708) lh1)))
+	    		(setq txp(polar cp (+ ang 4.71239) tx1))	; 텍스트 그리기		
+				(_Text  txp txh (itoa n) 0 2)
+			)		
+		)	
+		(_LIne cp lp)
+		(setq n(1+ n))
+		(setq wid(+ wid gap))
+		(setq len(- len gap))
+		(setq cp(polar cp ang gap))
+	)
+	(princ)
+)
+																		                   
+;//-----------------------------------------------------
+;;;=======================[ BreakObjects.lsp ]==============================
+;;; Author: Copyright?2006-2008 Charles Alan Butler 
+;;; Contact @  www.TheSwamp.org
+;;; Version:  2.1  Nov. 20,2008
+;;; Purpose: Break All selected objects
+;;;    permitted objects are lines, lwplines, plines, splines,
+;;;    ellipse, circles & arcs 
+;;;                            
+;;;  Function  c:MyBreak -       DCL for selecting the routines
+;;;  Function  c:BreakAll -      Break all objects selected with each other
+;;;  Function  c:BreakwObject  - Break many objects with a single object
+;;;  Function  c:BreakObject -   Break a single object with other objects 
+;;;  Function  c:BreakWith -     Break selected objects with other selected objects
+;;;  Function  c:BreakTouching - Break objects touching selected objects
+;;;  Function  c:BreakSelected - Break selected objects with any objects that touch it 
+;;;  Revision 1.8 Added Option for Break Gap greater than zero
+;;;  NEW r1.9  c:BreakWlayer -   Break objects with objects on a layer
+;;;  NEW r1.9  c:BreakWithTouching - Break touching objects with selected objects
+;;;  Revision 2.0 Fixed a bug when point to break is at the end of object
+;;;  Revision 2.1 Fixed another bug when point to break is at the end of object
+;;;
+;;;
+;;;  Function  break_with  - main break function called by all others and
+;;;                          returns a list of new enames, see c:BreakAll
+;;;                          for an example of using the return list
+;;;
+;;; Requirements: objects must have the same z-value
+;;; Restrictions: Does not Break objects on locked layers 
+;;; Returns:  none
+;;;
+;;;=====================================================================
+;;;   THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT EXPRESS OR IMPLIED     ;
+;;;   WARRANTY.  ALL IMPLIED WARRANTIES OF FITNESS FOR ANY PARTICULAR  ;
+;;;   PURPOSE AND OF MERCHANTABILITY ARE HEREBY DISCLAIMED.            ;
+;;;                                                                    ;
+;;;  You are hereby granted permission to use, copy and modify this    ;
+;;;  software without charge, provided you do so exclusively for       ;
+;;;  your own use or for use by others in your organization in the     ;
+;;;  performance of their normal duties, and provided further that     ;
+;;;  the above copyright notice appears in all copies and both that    ;
+;;;  copyright notice and the limited warranty and restricted rights   ;
+;;;  notice below appear in all supporting documentation.              ;
+;;;=====================================================================
+
+
+;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+;;               M A I N   S U B R O U T I N E                   
+;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+(defun break_with (ss2brk ss2brkwith self Gap / cmd intpts lst masterlist ss ssobjs
+                   onlockedlayer ssget->vla-list list->3pair GetNewEntities oc
+                   get_interpts break_obj GetLastEnt LastEntInDatabase ss2brkwithList
+                  )
+  ;; ss2brk     selection set to break
+  ;; ss2brkwith selection set to use as break points
+  ;; self       when true will allow an object to break itself
+  ;;            note that plined will break at each vertex
+  ;;
+  ;; return list of enames of new objects
+  
+  (vl-load-com)
+  
+  (princ "\nCalculating Break Points, Please Wait.\n")
+
+;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+;;                S U B   F U N C T I O N S                      
+;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+  ;;  return T if entity is on a locked layer
+  (defun onlockedlayer (ename / entlst)
+    (setq entlst (tblsearch "LAYER" (cdr (assoc 8 (entget ename)))))
+    (= 4 (logand 4 (cdr (assoc 70 entlst))))
+  )
+
+  ;;  return a list of objects from a selection set
+;|  (defun ssget->vla-list (ss)
+    (mapcar 'vlax-ename->vla-object (vl-remove-if 'listp (mapcar 'cadr (ssnamex ss ))))
+  )|;
+  (defun ssget->vla-list (ss / i ename allobj) ; this is faster, changed in ver 1.7
+       (setq i -1)
+       (while (setq  ename (ssname ss (setq i (1+ i))))
+         (setq allobj (cons (vlax-ename->vla-object ename) allobj))
+       )
+       allobj
+  )
+  
+  ;;  return a list of lists grouped by 3 from a flat list
+  (defun list->3pair (old / new)
+    (while (setq new (cons (list (car old) (cadr old) (caddr old)) new)
+                 old (cdddr old)))
+    (reverse new)
+  )
+  
+;;=====================================
+;;  return a list of intersect points  
+;;=====================================
+(defun get_interpts (obj1 obj2 / iplist)
+  (if (not (vl-catch-all-error-p
+             (setq iplist (vl-catch-all-apply
+                            'vlax-safearray->list
+                            (list
+                              (vlax-variant-value
+                                (vla-intersectwith obj1 obj2 acextendnone)
+                              ))))))
+    iplist
+  )
+)
+
+
+;;========================================
+;;  Break entity at break points in list  
+;;========================================
+;;   New as per version 1.8 [BrkGap] --- This subroutine has been re-written
+;;  Loop through the break points breaking the entity
+;;  If the entity is not a closed entity then a new object is created
+;;  This object is added to a list. When break points don't fall on the current 
+;;  entity the list of new entities are searched to locate the entity that the 
+;;  point is on so it can be broken.
+;;  "Break with a Gap" has been added to this routine. The problem faced with 
+;;  this method is that sections to be removed may lap if the break points are
+;;  too close to each other. The solution is to create a list of break point pairs 
+;;  representing the gap to be removed and test to see if there i an overlap. If
+;;  there is then merge the break point pairs into one large gap. This way the 
+;;  points will always fall on an object with one exception. If the gap is too near
+;;  the end of an object one break point will be off the end and therefore that 
+;;  point will need to be replaced with the end point.
+;;    NOTE: in ACAD2000 the (vlax-curve-getdistatpoint function has proven unreliable
+;;  so I have used (vlax-curve-getdistatparam in most cases
+(defun break_obj (ent brkptlst BrkGap / brkobjlst en enttype maxparam closedobj
+                  minparam obj obj2break p1param p2param brkpt2 dlst idx brkptS
+                  brkptE brkpt result GapFlg result ignore dist tmppt
+                  #ofpts 2gap enddist lastent obj2break stdist
+                 )
+  (or BrkGap (setq BrkGap 0.0)) ; default to 0
+  (setq BrkGap (/ BrkGap 2.0)) ; if Gap use 1/2 per side of break point
+  
+  (setq obj2break ent
+        brkobjlst (list ent)
+        enttype   (cdr (assoc 0 (entget ent)))
+        GapFlg    (not (zerop BrkGap)) ; gap > 0
+        closedobj (vlax-curve-isclosed obj2break)
+  )
+  ;; when zero gap no need to break at end points
+  (if (zerop Brkgap)
+    (setq spt (vlax-curve-getstartpoint ent)
+          ept (vlax-curve-getendpoint ent)
+          brkptlst (vl-remove-if '(lambda(x) (or (< (distance x spt) 0.0001)
+                                                 (< (distance x ept) 0.0001)))
+                                 brkptlst)
+    )
+  )
+  (if brkptlst
+    (progn
+  ;;  sort break points based on the distance along the break object
+  ;;  get distance to break point, catch error if pt is off end
+  ;; ver 2.0 fix - added COND to fix break point is at the end of a
+  ;; line which is not a valid break but does no harm
+  (setq brkptlst (mapcar '(lambda(x) (list x (vlax-curve-getdistatparam obj2break
+                                               ;; ver 2.0 fix
+                                               (cond ((vlax-curve-getparamatpoint obj2break x))
+                                                   ((vlax-curve-getparamatpoint obj2break
+                                                     (vlax-curve-getclosestpointto obj2break x))))))
+                            ) brkptlst))
+  ;; sort primary list on distance
+  (setq brkptlst (vl-sort brkptlst '(lambda (a1 a2) (< (cadr a1) (cadr a2)))))
+  
+  (if GapFlg ; gap > 0
+    ;; Brkptlst starts as the break point and then a list of pairs of points
+    ;;  is creates as the break points
+    (progn
+      ;;  create a list of list of break points
+      ;;  ((idx# stpoint distance)(idx# endpoint distance)...)
+      (setq idx 0)
+      (foreach brkpt brkptlst
+        
+        ;; ----------------------------------------------------------
+        ;;  create start break point, then create end break point    
+        ;;  ((idx# startpoint distance)(idx# endpoint distance)...)  
+        ;; ----------------------------------------------------------
+        (setq dist (cadr brkpt)) ; distance to center of gap
+        ;;  subtract gap to get start point of break gap
+        (cond
+          ((and (minusp (setq stDist (- dist BrkGap))) closedobj )
+           (setq stdist (+ (vlax-curve-getdistatparam obj2break
+                             (vlax-curve-getendparam obj2break)) stDist))
+           (setq dlst (cons (list idx
+                                  (vlax-curve-getpointatparam obj2break
+                                         (vlax-curve-getparamatdist obj2break stDist))
+                                  stDist) dlst))
+           )
+          ((minusp stDist) ; off start of object so get startpoint
+           (setq dlst (cons (list idx (vlax-curve-getstartpoint obj2break) 0.0) dlst))
+           )
+          (t
+           (setq dlst (cons (list idx
+                                  (vlax-curve-getpointatparam obj2break
+                                         (vlax-curve-getparamatdist obj2break stDist))
+                                  stDist) dlst))
+          )
+        )
+        ;;  add gap to get end point of break gap
+        (cond
+          ((and (> (setq stDist (+ dist BrkGap))
+                   (setq endDist (vlax-curve-getdistatparam obj2break
+                                     (vlax-curve-getendparam obj2break)))) closedobj )
+           (setq stdist (- stDist endDist))
+           (setq dlst (cons (list idx
+                                  (vlax-curve-getpointatparam obj2break
+                                         (vlax-curve-getparamatdist obj2break stDist))
+                                  stDist) dlst))
+           )
+          ((> stDist endDist) ; off end of object so get endpoint
+           (setq dlst (cons (list idx
+                                  (vlax-curve-getpointatparam obj2break
+                                        (vlax-curve-getendparam obj2break))
+                                  endDist) dlst))
+           )
+          (t
+           (setq dlst (cons (list idx
+                                  (vlax-curve-getpointatparam obj2break
+                                         (vlax-curve-getparamatdist obj2break stDist))
+                                  stDist) dlst))
+          )
+        )
+        ;; -------------------------------------------------------
+        (setq idx (1+ IDX))
+      ) ; foreach brkpt brkptlst
+      
+
+      (setq dlst (reverse dlst))
+      ;;  remove the points of the gap segments that overlap
+      (setq idx -1
+            2gap (* BrkGap 2)
+            #ofPts (length Brkptlst)
+      )
+      (while (<= (setq idx (1+ idx)) #ofPts)
+        (cond
+          ((null result) ; 1st time through
+           (setq result (list (car dlst)) ; get first start point
+                 result (cons (nth (1+(* idx 2)) dlst) result))
+          )
+          ((= idx #ofPts) ; last pass, check for wrap
+           (if (and closedobj (> #ofPts 1)
+                    (<= (+(- (vlax-curve-getdistatparam obj2break
+                            (vlax-curve-getendparam obj2break))
+                          (cadr (last BrkPtLst))) (cadar BrkPtLst)) 2Gap))
+             (progn
+               (if (zerop (rem (length result) 2))
+                 (setq result (cdr result)) ; remove the last end point
+               )
+               ;;  ignore previous endpoint and present start point
+               (setq result (cons (cadr (reverse result)) result) ; get last end point
+                     result (cdr (reverse result))
+                     result (reverse (cdr result)))
+             )
+           )
+          )
+          ;; Break Gap Overlaps
+          ((< (cadr (nth idx Brkptlst)) (+ (cadr (nth (1- idx) Brkptlst)) 2Gap))
+           (if (zerop (rem (length result) 2))
+             (setq result (cdr result)) ; remove the last end point
+           )
+           ;;  ignore previous endpoint and present start point
+           (setq result (cons (nth (1+(* idx 2)) dlst) result)) ; get present end point
+           )
+          ;; Break Gap does Not Overlap previous point 
+          (t
+           (setq result (cons (nth (* idx 2) dlst) result)) ; get this start point
+           (setq result (cons (nth (1+(* idx 2)) dlst) result)) ; get this end point
+          )
+        ) ; end cond stmt
+      ) ; while
+      
+      ;;  setup brkptlst with pair of break pts ((p1 p2)(p3 p4)...)
+      ;;  one of the pair of points will be on the object that
+      ;;  needs to be broken
+      (setq dlst     (reverse result)
+            brkptlst nil)
+      (while dlst ; grab the points only
+        (setq brkptlst (cons (list (cadar dlst)(cadadr dlst)) brkptlst)
+              dlst   (cddr dlst))
+      )
+    )
+  )
+  ;;   -----------------------------------------------------
+
+  ;; (if (equal  a ent) (princ)) ; debug CAB  -------------
+ 
+  (foreach brkpt (reverse brkptlst)
+    (if GapFlg ; gap > 0
+      (setq brkptS (car brkpt)
+            brkptE (cadr brkpt))
+      (setq brkptS (car brkpt)
+            brkptE brkptS)
+    )
+    ;;  get last entity created via break in case multiple breaks
+    (if brkobjlst
+      (progn
+        (setq tmppt brkptS) ; use only one of the pair of breakpoints
+        ;;  if pt not on object x, switch objects
+        (if (not (numberp (vl-catch-all-apply
+                            'vlax-curve-getdistatpoint (list obj2break tmppt))))
+          (progn ; find the one that pt is on
+            (setq idx (length brkobjlst))
+            (while (and (not (minusp (setq idx (1- idx))))
+                        (setq obj (nth idx brkobjlst))
+                        (if (numberp (vl-catch-all-apply
+                                       'vlax-curve-getdistatpoint (list obj tmppt)))
+                          (null (setq obj2break obj)) ; switch objects, null causes exit
+                          t
+                        )
+                   )
+            )
+          )
+        )
+      )
+    )
+    ;| ;; ver 2.0 fix - removed this code as there are cases where the break point
+       ;; is at the end of a line which is not a valid break but does no harm
+    (if (and brkobjlst idx (minusp idx)
+             (null (alert (strcat "Error - point not on object"
+                                  "\nPlease report this error to"
+                                  "\n   CAB at TheSwamp.org"))))
+      (exit)
+    )
+    |;
+    ;; (if (equal (if (null a)(setq a (car(entsel"\nTest Ent"))) a) ent) (princ)) ; debug CAB  -------------
+
+    ;;  Handle any objects that can not be used with the Break Command
+    ;;  using one point, gap of 0.000001 is used
+    (setq closedobj (vlax-curve-isclosed obj2break))
+    (if GapFlg ; gap > 0
+      (if closedobj
+        (progn ; need to break a closed object
+          (setq brkpt2 (vlax-curve-getPointAtDist obj2break
+                     (- (vlax-curve-getDistAtPoint obj2break brkptE) 0.00001)))
+          (command "._break" obj2break "_non" (trans brkpt2 0 1)
+                   "_non" (trans brkptE 0 1))
+          (and (= "CIRCLE" enttype) (setq enttype "ARC"))
+          (setq BrkptE brkpt2)
+        )
+      )
+      ;;  single breakpoint ----------------------------------------------------
+      ;|(if (and closedobj ; problems with ACAD200 & this code
+               (not (setq brkptE (vlax-curve-getPointAtDist obj2break
+                       (+ (vlax-curve-getDistAtPoint obj2break brkptS) 0.00001))))
+          )
+        (setq brkptE (vlax-curve-getPointAtDist obj2break
+                       (- (vlax-curve-getDistAtPoint obj2break brkptS) 0.00001)))
+        
+      )|;
+      (if (and closedobj 
+               (not (setq brkptE (vlax-curve-getPointAtDist obj2break
+                       (+ (vlax-curve-getdistatparam obj2break
+                            ;;(vlax-curve-getparamatpoint obj2break brkpts)) 0.00001))))
+                            ;; ver 2.0 fix
+                            (cond ((vlax-curve-getparamatpoint obj2break brkpts))
+                                  ((vlax-curve-getparamatpoint obj2break
+                                      (vlax-curve-getclosestpointto obj2break brkpts))))) 0.00001)))))
+        (setq brkptE (vlax-curve-getPointAtDist obj2break
+                       (- (vlax-curve-getdistatparam obj2break
+                            ;;(vlax-curve-getparamatpoint obj2break brkpts)) 0.00001)))
+                            ;; ver 2.0 fix
+                            (cond ((vlax-curve-getparamatpoint obj2break brkpts))
+                                  ((vlax-curve-getparamatpoint obj2break
+                                      (vlax-curve-getclosestpointto obj2break brkpts))))) 0.00001)))
+       )
+    ) ; endif
+    
+    ;; (if (null brkptE) (princ)) ; debug
+    
+    (setq LastEnt (GetLastEnt))
+    (command "._break" obj2break "_non" (trans brkptS 0 1) "_non" (trans brkptE 0 1))
+    (and *BrkVerbose* (princ (setq *brkcnt* (1+ *brkcnt*))) (princ "\r"))
+    (and (= "CIRCLE" enttype) (setq enttype "ARC"))
+    (if (and (not closedobj) ; new object was created
+             (not (equal LastEnt (entlast))))
+        (setq brkobjlst (cons (entlast) brkobjlst))
+    )
+  )
+  )
+  ) ; endif brkptlst
+  
+) ; defun break_obj
+
+;;====================================
+;;  CAB - get last entity in datatbase
+(defun GetLastEnt ( / ename result )
+  (if (setq result (entlast))
+    (while (setq ename (entnext result))
+      (setq result ename)
+    )
+  )
+  result
+)
+;;===================================
+;;  CAB - return a list of new enames
+(defun GetNewEntities (ename / new)
+  (cond
+    ((null ename) (alert "Ename nil"))
+    ((eq 'ENAME (type ename))
+      (while (setq ename (entnext ename))
+        (if (entget ename) (setq new (cons ename new)))
+      )
+    )
+    ((alert "Ename wrong type."))
+  )
+  new
+)
+
+  
+  ;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  ;;         S T A R T  S U B R O U T I N E   H E R E              
+  ;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+   
+    (setq LastEntInDatabase (GetLastEnt))
+    (if (and ss2brk ss2brkwith)
+    (progn
+      (setq oc 0
+            ss2brkwithList (ssget->vla-list ss2brkwith))
+      (if (> (* (sslength ss2brk)(length ss2brkwithList)) 5000)
+        (setq *BrkVerbose* t)
+      )
+      (and *BrkVerbose*
+           (princ (strcat "Objects to be Checked: "
+            (itoa (* (sslength ss2brk)(length ss2brkwithList))) "\n")))
+      ;;  CREATE a list of entity & it's break points
+      (foreach obj (ssget->vla-list ss2brk) ; check each object in ss2brk
+        (if (not (onlockedlayer (vlax-vla-object->ename obj)))
+          (progn
+            (setq lst nil)
+            ;; check for break pts with other objects in ss2brkwith
+            (foreach intobj  ss2brkwithList
+              (if (and (or self (not (equal obj intobj)))
+                       (setq intpts (get_interpts obj intobj))
+                  )
+                (setq lst (append (list->3pair intpts) lst)) ; entity w/ break points
+              )
+              (and *BrkVerbose* (princ (strcat "Objects Checked: " (itoa (setq oc (1+ oc))) "\r")))
+            )
+            (if lst
+              (setq masterlist (cons (cons (vlax-vla-object->ename obj) lst) masterlist))
+            )
+          )
+        )
+      )
+
+      
+      (and *BrkVerbose* (princ "\nBreaking Objects.\n"))
+      (setq *brkcnt* 0) ; break counter
+      ;;  masterlist = ((ent brkpts)(ent brkpts)...)
+      (if masterlist
+        (foreach obj2brk masterlist
+          (break_obj (car obj2brk) (cdr obj2brk) Gap)
+        )
+      )
+      )
+  )
+;;==============================================================
+   (and (zerop *brkcnt*) (princ "\nNone to be broken."))
+   (setq *BrkVerbose* nil)
+  (GetNewEntities LastEntInDatabase) ; return list of enames of new objects
+)
+;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+;;      E N D   O F    M A I N   S U B R O U T I N E             
+;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+;;           M A I N   S U B   F U N C T I O N S                 
+;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+  ;;======================
+  ;;  Redraw ss with mode 
+  ;;======================
+  (defun ssredraw (ss mode / i num)
+    (setq i -1)
+    (while (setq ename (ssname ss (setq i (1+ i))))
+      (redraw (ssname ss i) mode)
+    )
+  )
+
+  ;;===========================================================================
+  ;;  get all objects touching entities in the sscross                         
+  ;;  limited obj types to "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"
+  ;;  returns a list of enames
+  ;;===========================================================================
+  (defun gettouching (sscros / ss lst lstb lstc objl)
+    (and
+      (setq lstb (vl-remove-if 'listp (mapcar 'cadr (ssnamex sscros)))
+            objl (mapcar 'vlax-ename->vla-object lstb)
+      )
+      (setq
+        ss (ssget "_A" (list (cons 0 "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE")
+                             (cons 410 (getvar "ctab"))))
+      )
+      (setq lst (vl-remove-if 'listp (mapcar 'cadr (ssnamex ss))))
+      (setq lst (mapcar 'vlax-ename->vla-object lst))
+      (mapcar
+        '(lambda (x)
+           (mapcar
+             '(lambda (y)
+                (if (not
+                      (vl-catch-all-error-p
+                        (vl-catch-all-apply
+                          '(lambda ()
+                             (vlax-safearray->list
+                               (vlax-variant-value
+                                 (vla-intersectwith y x acextendnone)
+                               ))))))
+                  (setq lstc (cons (vlax-vla-object->ename x) lstc))
+                )
+              ) objl)
+         ) lst)
+    )
+    lstc
+  )
+
+
+
+;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+;;          E N D   M A I N    F U N C T I O N S                 
+;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+;;===============================================
+;;   Break all objects selected with each other  
+;;===============================================
+(defun c:BreakAll (/ cmd ss NewEnts AllEnts tmp)
+
+  (command "_.undo" "_begin")
+  (setq cmd (getvar "CMDECHO"))
+  (setvar "CMDECHO" 0)
+  (or Bgap (setq Bgap 0)) ; default
+  (initget 4) ; no negative numbers
+  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
+    (setq Bgap tmp)
+  )
+  ;;  get objects to break
+  (prompt "\nSelect objects to break with each other & press enter: ")
+  (if (setq ss (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+     (setq NewEnts (Break_with ss ss nil Bgap) ; ss2break ss2breakwith (flag nil = not to break with self)
+           ; AllEnts (append NewEnts (vl-remove-if 'listp (mapcar 'cadr (ssnamex ss)))
+           )
+  )
+  (setvar "CMDECHO" cmd)
+  (command "_.undo" "_end")
+  (princ)
+)
+
+
+;;===========================================
+;;  Break a single object with other objects 
+;;===========================================
+(defun c:bb (/ cmd ss1 ss2 tmp)
+
+  (command "_.undo" "_begin")
+  (setq cmd (getvar "CMDECHO"))
+  (setvar "CMDECHO" 0)
+  (or Bgap (setq Bgap 0)) ; default
+  (initget 4) ; no negative numbers
+  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
+    (setq Bgap tmp)
+  )
+
+  ;;  get objects to break
+  (prompt "\nSelect single object to break: ")
+  (if (and (setq ss1 (ssget "+.:E:S" '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+           (not (redraw (ssname ss1 0) 3))
+           (not (prompt "\n***  Select object(s) to break with & press enter:  ***"))
+           (setq ss2 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+           (not (redraw (ssname ss1 0) 4)))
+     (Break_with ss1 ss2 nil Bgap) ; ss2break ss2breakwith (flag nil = not to break with self)
+  )
+
+  (setvar "CMDECHO" cmd)
+  (command "_.undo" "_end")
+  (princ)
+)
+
+;;==========================================
+;;  Break many objects with a single object 
+;;==========================================
+(defun c:bw (/ cmd ss1 ss2 tmp)
+
+  (command "_.undo" "_begin")
+  (setq cmd (getvar "CMDECHO"))
+  (setvar "CMDECHO" 0)
+  (or Bgap (setq Bgap 0)) ; default
+  (initget 4) ; no negative numbers
+  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
+    (setq Bgap tmp)
+  )
+  ;;  get objects to break
+  (prompt "\nSelect object(s) to break & press enter: ")
+  (if (and (setq ss1 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+           (not (ssredraw ss1 3))
+           (not (prompt "\n***  Select single object to break with:  ***"))
+           (setq ss2 (ssget "+.:E:S" '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+           (not (ssredraw ss1 4))
+      )
+    (break_with ss1 ss2 nil Bgap) ; ss1break ss2breakwith (flag nil = not to break with self)
+  )
+
+  (setvar "CMDECHO" cmd)
+  (command "_.undo" "_end")
+  (princ)
+)
+
+
+;;==========================================
+;;  Break objects with objects on a layer   
+;;==========================================
+;;  New 08/01/2008
+(defun c:BreakWlayer (/ cmd ss1 ss2 tmp lay)
+
+  (command "_.undo" "_begin")
+  (setq cmd (getvar "CMDECHO"))
+  (setvar "CMDECHO" 0)
+  (or Bgap (setq Bgap 0)) ; default
+  (initget 4) ; no negative numbers
+  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
+    (setq Bgap tmp)
+  )
+  ;;  get objects to break
+  (prompt "\n***  Select single object for break layer:  ***")
+  
+  (if (and (setq ss2 (ssget "+.:E:S" '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+           (setq lay (assoc 8 (entget (ssname ss2 0))))
+           (setq ss2 (ssget "_X" (list
+                                   '(0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE")
+                                   lay (cons 410 (getvar "ctab")))))
+           (not (prompt "\nSelect object(s) to break & press enter: "))
+           (setq ss1 (ssget (list
+                              '(0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE")
+                              (cons 8 (strcat "~" (cdr lay))))))
+      )
+    (break_with ss1 ss2 nil Bgap) ; ss1break ss2breakwith (flag nil = not to break with self)
+  )
+
+  (setvar "CMDECHO" cmd)
+  (command "_.undo" "_end")
+  (princ)
+)
+
+
+;;======================================================
+;;  Break selected objects with other selected objects  
+;;======================================================
+(defun c:BreakWith (/ cmd ss1 ss2 tmp)
+
+  (command "_.undo" "_begin")
+  (setq cmd (getvar "CMDECHO"))
+  (setvar "CMDECHO" 0)
+  (or Bgap (setq Bgap 0)) ; default
+  (initget 4) ; no negative numbers
+  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
+    (setq Bgap tmp)
+  )
+  ;;  get objects to break
+  (prompt "\nBreak selected objects with other selected objects.")
+  (prompt "\nSelect object(s) to break & press enter: ")
+  (if (and (setq ss1 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+           (not (ssredraw ss1 3))
+           (not (prompt "\n***  Select object(s) to break with & press enter:  ***"))
+           (setq ss2 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+           (not (ssredraw ss1 4))
+      )
+    (break_with ss1 ss2 nil Bgap) ; ss1break ss2breakwith (flag nil = not to break with self)
+  )
+
+  (setvar "CMDECHO" cmd)
+  (command "_.undo" "_end")
+  (princ)
+)
+
+
+
+;;=============================================
+;;  Break objects touching selected objects    
+;;=============================================
+
+(defun c:BreakTouching (/ cmd ss1 ss2 tmp)
+
+  (command "_.undo" "_begin")
+  (setq cmd (getvar "CMDECHO"))
+  (setvar "CMDECHO" 0)
+  (setq ss1 (ssadd))
+  (or Bgap (setq Bgap 0)) ; default
+  (initget 4) ; no negative numbers
+  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
+    (setq Bgap tmp)
+  )
+  ;;  get objects to break
+  (prompt "\nBreak objects touching selected objects.")
+  (if (and (not (prompt "\nSelect object(s) to break & press enter: "))
+           (setq ss2 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+           (mapcar '(lambda (x) (ssadd x ss1)) (gettouching ss2))
+      )
+    (break_with ss1 ss2 nil Bgap) ; ss1break ss2breakwith (flag nil = not to break with self)
+  )
+
+  (setvar "CMDECHO" cmd)
+  (command "_.undo" "_end")
+  (princ)
+)
+
+
+
+;;=================================================
+;;  Break touching objects with selected objects   
+;;=================================================
+;;  New 08/01/2008
+(defun c:BreakWithTouching (/ cmd ss1 ss2 tmp)
+
+  (command "_.undo" "_begin")
+  (setq cmd (getvar "CMDECHO"))
+  (setvar "CMDECHO" 0)
+  (setq ss1 (ssadd))
+  (or Bgap (setq Bgap 0)) ; default
+  (initget 4) ; no negative numbers
+  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
+    (setq Bgap tmp)
+  )
+
+  ;;  get objects to break
+  (prompt "\nBreak objects touching selected objects.")
+  (prompt "\nSelect object(s) to break with & press enter: ")
+  (if (and (setq ss2 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+           (setq tlst (gettouching ss2))
+      )
+    (progn
+      (setq tlst (vl-remove-if '(lambda (x)(ssmemb x ss2)) tlst)) ;  remove if in picked ss
+      (mapcar '(lambda (x) (ssadd x ss1)) tlst) ; convert to a selection set
+      (break_with ss1 ss2 nil Bgap) ; ss1break ss2breakwith (flag nil = not to break with self)
+    )
+  )
+
+  (setvar "CMDECHO" cmd)
+  (command "_.undo" "_end")
+  (princ)
+)
+
+
+;;==========================================================
+;;  Break selected objects with any objects that touch it   
+;;==========================================================
+
+
+(defun c:BreakSelected (/ cmd ss1 ss2 tmp)
+  
+  (command "_.undo" "_begin")
+  (setq cmd (getvar "CMDECHO"))
+  (setvar "CMDECHO" 0)
+  (setq ss1 (ssadd))
+  (or Bgap (setq Bgap 0)) ; default
+  (initget 4) ; no negative numbers
+  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
+    (setq Bgap tmp)
+  )
+  ;;  get objects to break
+  (prompt "\nBreak selected objects with any objects that touch it.")
+  (if (and (not (prompt "\nSelect object(s) to break with touching & press enter: "))
+           (setq ss2 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+           (mapcar '(lambda (x) (ssadd x ss1)) (gettouching ss2))
+      )
+    (break_with ss2 ss1 nil Bgap) ; ss2break ss1breakwith (flag nil = not to break with self)
+  )
+
+  (setvar "CMDECHO" cmd)
+  (command "_.undo" "_end")
+  (princ)
+)
+
+;; ***************************************************
+;;     Function to create a dcl support file if it    
+;;       does not exist                               
+;;     Usage : (create_dcl "file name")               
+;;     Returns : T if successful else nil             
+;; ***************************************************
+(defun create_Breakdcl (fname / acadfn dcl-rev-check)
+  ;;=======================================
+  ;;      check revision date Routine          
+  ;;=======================================
+  (defun dcl-rev-check (fn / rvdate ln lp)
+    ;;  revision flag must match exactly and must
+    ;;  begin with //
+    (setq rvflag "//  Revision Control 05/12/2008@14:11" )
+    (if (setq fn (findfile fn))
+      (progn ; check rev date
+        (setq lp 5) ; read 4 lines
+        (setq fn (open fn "r")) ; open file for reading
+        (while (> (setq lp (1- lp)) 0)
+          (setq ln (read-line fn)) ; get a line from file
+          (if (vl-string-search rvflag ln)
+            (setq lp 0)
+          )
+        )
+        (close fn) ; close the open file handle
+        (if (= lp -1)
+          nil ; no new dcl needed
+          t ; flag to create new file
+        )
+      )
+      t ; flag to create new file
+    )
+  )
+  (if (null(wcmatch (strcase fname) "*`.DCL"))
+    (setq fname (strcat fname ".DCL"))
+  )
+  (if (dcl-rev-check fname)
+    ;; create dcl file in same directory as ACAD.PAT  
+    (progn
+      (setq acadfn (findfile "ACAD.PAT")
+            fn (strcat (substr acadfn 1 (- (strlen acadfn) 8))fname)
+            fn (open fn "w")
+      )
+      (foreach x (list
+                   "// WARNING file will be recreated if you change the next line"
+                   rvflag
+                   "//BreakAll.DCL"
+                   "BreakDCL : dialog { label = \"[ Break All or Some by CAB  v2.1 ]\";"
+                   "  : text { label = \"--=<  Select type of Break Function needed  >=--\"; "
+                   "           key = \"tm\"; alignment = centered; fixed_width = true;}"
+                   "    spacer_1;"
+                   "    : button { key = \"b1\"; mnemonic = \"T\";  alignment = centered;"
+                   "               label = \"Break all objects selected with each other\";} "
+                   "    : button { key = \"b2\"; mnemonic = \"T\"; alignment = centered;"
+                   "               label = \"Break selected objects with other selected objects\";}"
+                   "    : button { key = \"b3\"; mnemonic = \"T\";  alignment = centered;"
+                   "               label = \" Break selected objects with any  objects that touch it\";}"
+                   "    spacer_1;"
+                   "  : row { spacer_0;"
+                   "    : edit_box {key = \"gap\" ; width = 8; mnemonic = \"G\"; label = \"Gap\"; fixed_width = true;}"
+                   "    : button { label = \"Help\"; key = \"help\"; mnemonic = \"H\"; fixed_width = true;} "
+                   "    cancel_button;"
+                   "    spacer_0;"
+                   "  }"
+                   "}"
+                  ) ; endlist
+        (princ x fn)
+        (write-line "" fn)
+      ) ; end foreach
+      (close fn)
+      (setq acadfn nil)
+      (alert (strcat "\nDCL file created, please restart the routine"
+               "\n again if an error occures."))
+      t ; return True, file created
+    )
+    t ; return True, file found
+  )
+) ; end defun
+
+
+;;==============================
+;;     BreakAll Dialog Routine  
+;;==============================
+(defun c:MyBreak(/ dclfile dcl# RunDCL BreakHelp cmd txt2num)
+   ;;  return number or nil
+  (defun txt2num (txt / num)
+    (if txt
+    (or (setq num (distof txt 5))
+        (setq num (distof txt 2))
+        (setq num (distof txt 1))
+        (setq num (distof txt 4))
+        (setq num (distof txt 3))
+    )
+    )
+    (if (numberp num)
+      num
+    )
+  )
+  (defun mydonedialog (flag)
+    (setq DCLgap (txt2num (get_tile "gap")))
+    (done_dialog flag)
+  )
+  (defun RunDCL (/ action)
+    (or DCLgap (setq DCLgap 0)) ; error trap value
+    (action_tile "b1" "(mydonedialog 1)")
+    (action_tile "b2" "(mydonedialog 2)")
+    (action_tile "b3" "(mydonedialog 3)")
+    (action_tile "gap" "(setq DCLgap (txt2num value$))")
+    (set_tile "gap" (rtos DCLgap))
+    (action_tile "help" "(BreakHelp)")
+    (action_tile "cancel" "(done_dialog 0)")
+    (setq action (start_dialog))
+    (or DCLgap (setq DCLgap 0)) ; error trap value
+    (setq DCLgap (max DCLgap 0)) ; nu negative numbers
+    
+    (cond
+      ((= action 1) ; BreakAll
+         (command "_.undo" "_begin")
+  ;;  get objects to break
+  (prompt "\nSelect objects to break with each other & press enter: ")
+  (if (setq ss (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+     (setq NewEnts (Break_with ss ss nil DCLgap) ; ss2break ss2breakwith (flag nil = not to break with self)
+           ; AllEnts (append NewEnts (vl-remove-if 'listp (mapcar 'cadr (ssnamex ss)))
+           )
+  )
+  (command "_.undo" "_end")
+  (princ)
+       )
+      
+      ((= action 2) ; BreakWith
+         ;;  get objects to break
+  (prompt "\nBreak selected objects with other selected objects.")
+  (prompt "\nSelect object(s) to break & press enter: ")
+  (if (and (setq ss1 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+           (not (ssredraw ss1 3))
+           (not (prompt "\n***  Select object(s) to break with & press enter:  ***"))
+           (setq ss2 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+           (not (ssredraw ss1 4))
+      )
+    (break_with ss1 ss2 nil DCLgap) ; ss1break ss2breakwith (flag nil = not to break with self)
+  )
+
+       )
+      ((= action 3) ; BreakSelected
+  (setq ss1 (ssadd))
+  ;;  get objects to break
+  (prompt "\nBreak selected objects with any objects that touch it.")
+  (if (and (not (prompt "\nSelect object(s) to break with touching & press enter: "))
+           (setq ss2 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
+           (mapcar '(lambda (x) (ssadd x ss1)) (gettouching ss2))
+      )
+    (break_with ss2 ss1 nil DCLgap) ; ss2break ss1breakwith (flag nil = not to break with self)
+  )
+       )
+    )
+  )
+  (defun BreakHelp ()
+    (alert
+      (strcat
+        "BreakAll.lsp				       (c) 2007-2008 Charles Alan Butler\n\n"
+        "This LISP routine will break objects based on the routine you select.\n"
+        "It will not break objects on locked layers and objects must have the same z-value.\n"
+        "Object types are limited to LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE\n"
+        "BreakAll -      Break all objects selected with each other\n"
+        "BreakwObject  - Break many objects with a single object\n"
+        "BreakObject -   Break a single object with many objects \n"
+        "BreakWith -     Break selected objects with other selected objects\n"
+        "BreakTouching - Break objects touching selected objects\n"
+        "BreakSelected - Break selected objects with any objects that touch it\n"
+        " The Gap distance is the total opening created.\n"
+        "You may run each routine by entering the function name at the command line.\n"
+        "For updates & comments contact Charles Alan Butler AKA CAB at TheSwamp.org.\n")
+    )
+  )
+  
+  ;;================================================================
+  ;;                    Start of Routine                            
+  ;;================================================================
+  (vl-load-com)
+  (setq cmd (getvar "CMDECHO"))
+  (setvar "CMDECHO" 0)
+  (setq dclfile "BreakAll.dcl")
+  (cond
+    ((not (create_Breakdcl dclfile))
+     (prompt (strcat "\nCannot create " dclfile "."))
+    )
+    ((< (setq dcl# (load_dialog dclfile)) 0)
+     (prompt (strcat "\nCannot load " dclfile "."))
+    )
+    ((not (new_dialog "BreakDCL" dcl#))
+     (prompt (strcat "\nProblem with " dclfile "."))
+    )
+    ((RunDCL))      ; No DCL problems: fire it up
+  )
+  (and cmd (setvar "CMDECHO" cmd))
+  (princ)
+)
+(prompt "Break routines loaded, Enter Mybreak to run.")
+(princ)
+
+
+;//-----------------------------------------------------
+; 글자 정렬 
+;//-----------------------------------------------------
+(defun C:RRH(/ ents nent ypnt count ent old10 old11 old72 new10 new11)
+(setq ents (ssget))
+(setq nent (sslength ents))
+(setq ypnt (getpoint "\nPick Point: "))
+(setq count 0)
+(repeat nent
+  (setq ent (entget (ssname ents count)))
+  (if (= "TEXT" (cdr (assoc 0 ent)))
+    (progn
+      (setq old10 (assoc 10 ent))                 ;竍格
+      (setq old11 (assoc 11 ent))                 ;瑂烦格
+      (setq old72 (assoc 72 ent))                 ;畞蛍各漣
+      (setq old73 (assoc 73 ent))                 ;畞虎各漣
+      (setq new10 (cons 10 (list (car (cdr old10)) (cadr ypnt))))
+      (setq new11 (cons 11 (list (car (cdr old11)) (cadr ypnt))))
+      (if (and (= (cdr old72) 0) (= (cdr old73) 0))
+        (setq ent (subst new10 old10 ent))
+        (progn
+          (setq ent (subst new11 old11 ent))
+          (setq ent (subst (cons 73 0) old73 ent))
+        ) ;of progn
+      ) ;of if
+      (entmod ent)
+    ) ;of progn
+  ) ;of if
+  (setq count (+ count 1))
+);of repeat
+(princ)
+) ;of defun
+(defun C:RRV(/ ents nent ans w72 xpnt count ent old10 old11 old72 new10 new11 new72)
+(setq ents (ssget))
+(setq nent (sslength ents))
+(initget "Left Middle Right")                    ;
+(setq ans (getkword "\n<Left>/Middle/Right: "))
+(if (= ans nil) (setq ans "Left"))
+(cond
+  ((= ans "Left")   (setq w72 0))
+  ((= ans "Middle") (setq w72 1))
+  ((= ans "Right")  (setq w72 2))
+) ;of cond
+(setq xpnt (getpoint "\nPick Point: "))
+(setq count 0)
+(repeat nent
+  (setq ent (entget (ssname ents count)))
+  (if (= "TEXT" (cdr (assoc 0 ent)))
+    (progn
+      (setq old10 (assoc 10 ent))                 ;竍格
+      (setq old11 (assoc 11 ent))                 ;瑂烦格
+      (setq old72 (assoc 72 ent))                 ;各漣
+      (setq new10 (cons 10 (list (car xpnt) (cadr (cdr old10)))))
+      (setq new11 (cons 11 (list (car xpnt) (cadr (cdr old11)))))
+      (setq new72 (cons 72 w72))
+      (if (= (cdr old72) 0)
+        (progn                                    ; left各漣伐 墂秮
+          (if (= w72 0)
+              (setq ent (subst new10 old10 ent))
+            (progn
+               (setq new11 (cons 11 (list (car xpnt) (cadr (cdr old10)))))
+               (setq ent (subst new11 old11 ent))
+            );of progn
+          ) ;of if
+          (setq ent (subst new72 old72 ent))
+        ) ;of progn
+        (progn                                           ; left各漣贰 碼摜 墂秮
+          (if (= w72 0)
+             (setq ent (subst new10 old10 ent))
+             (setq ent (subst new11 old11 ent))
+          ) ;of if
+          (setq ent (subst new72 old72 ent))
+        ) ;of progn
+      ) ;of if
+      (entmod ent)
+    ) ;of progn
+  ) ;of if
+  (setq count (+ count 1))
+);of repeat
+(princ))
+
+;//-----------------------------------------------------
+; 중복 선 정리 
+;//-----------------------------------------------------
+;더블 텍스트 포인트 라인 지우는 리습
+(defun C:dut() (DoubleEntity_Delete))
+(defun DoubleEntity_Delete( / ss ssdup ct len e eb pt lay ang sty hgt str obj obj_list)
+ (setq obj_list(list))
+ (princ "\nSelect text objects.") (setq ss (ssget))
+  (if ss                                       
+   (progn  
+;;중복된 엔티티 선택 
+    (princ "\nBuilding list of objects.")
+    (setq ssdup (ssadd))                      
+    (setq len (sslength ss) ct 0)                        
+     (while (< ct len)
+      (setq e (ssname ss ct))                
+      (setq eb (entget e))                   
+      (setq ct (+ ct 1)) 
+      (setq Name (cdr (assoc 0 eb)))          
+       (if (and (/= Name  "LWPOLYLINE")(/= Name  "POLYLINE"))
+        (progn
+         (cond ((= Name "LINE") (setq pt (cdr (assoc 10 eb)) lay (cdr (assoc 8 eb)))          
+          (setq ang (cdr (assoc 11 eb)) sty (cdr (assoc 7 eb)))          
+          (setq hgt (cdr (assoc 40 eb))  str (cdr (assoc 1 eb)))
+               )
+          ( T (setq pt (cdr (assoc 10 eb)) lay (cdr (assoc 8 eb)))          
+              (setq ang (cdr (assoc 50 eb)) sty (cdr (assoc 7 eb)))          
+              (setq hgt (cdr (assoc 40 eb))  str (cdr (assoc 1 eb)))
+          )
+         );cond          
+               (setq obj (list pt lay ang sty hgt str))
+                (if (not (member obj obj_list))        
+                 (setq obj_list (cons obj obj_list)) 
+                 (ssadd e ssdup)                     
+                );if
+        );progn
+       );if                                      
+     );while
+     (setq aaa obj_list)
+;;삭제될 엔티티 삭제
+   (if (> (sslength ssdup) 0)                
+    (progn (princ "\nDeleting duplicate objects.")
+     (setq len (sslength ssdup) ct 0)                
+      (while (< ct len)                      
+       (setq e (ssname ssdup ct))          
+       (setq ct (+ ct 1))                 
+       (entdel e)
+      );while
+     (princ (strcat "\nDeleted "  (itoa len)  " duplicate objects." ))
+    );progn
+    (princ "\nNo duplicates found.")       
+   );if
+
+  );progn                                            
+    (princ "\nNo text objects selected.")
+ );if
+    (princ)
+);defun
+
+;//-----------------------------------------------------
+; 글자 똑같이 만들기 
+;//-----------------------------------------------------
+(defun c:tt (/ SS EE EO EL NLA NO E ZO ZL OLD NEW STL NLB STL1 STL2)
+  ;(princ (strcat "\n\tTSC, Version " version "," logo ""))
+  
+  (prompt "\ntext를 선택하세요 : ")
+  (setq SS (ssget))
+  (while SS
+  
+  (RMT)
+  (setq STL1 (cdr (assoc 7 (entget (ssname SS 0)))))
+  (setq EO SS)
+  (prompt "\n원하는 text를 선택하세요 :")
+  (setq EL (ssget))
+  (RMT)
+  (setq STL2 (cdr (assoc 7 (entget (ssname EL 0)))))
+  (if (/= STL1 STL2)
+      (progn
+        (setq NLA (cdr (assoc 7 (entget (ssname EL 0)))))
+        (SETQ NO 0)
+        (while (setq E (ssname EO NO))
+               (setq      ZO (ENTGET E))
+               (setq      OLD (ASSOC 7 ZO))
+               (setq      NEW (CONS (CAR OLD) NLA))
+               (setq      ZL (SUBST NEW OLD ZO))
+               (ENTMOD ZL)
+               (SETQ NO (1+ NO))
+        )
+      )
+  )
+  (setq NLA (cdr (assoc 1 (entget (ssname EL 0)))))
+  (SETQ NO 0)
+  (WHILE (SETQ E (SSNAME EO NO))
+         (SETQ ZO (ENTGET E))
+         (SETQ OLD (ASSOC 1 ZO))
+         (SETQ NEW (CONS (CAR OLD) NLA))
+         (SETQ ZL (SUBST NEW OLD ZO)
+         )
+         (ENTMOD ZL)
+         (SETQ NO (1+ NO))
+  )
+  (prompt "\n작업을 종료하려면 enter. ")
+  (prompt "\ntext를 선택하세요 : ")
+  (setq SS (ssget))
+  )
+
+  (princ)
+)
+
+(princ "\n\t 선택된 text를 원하는 text로 바꿈. Command: tt")
+(princ)
+
+(defun RMT (/ k e ll)
+  (setq k 0)
+  (repeat (sslength ss)
+    (setq e (entget (ssname ss k)))
+    (setq ll (cdr (assoc 0 e)))
+    (if (/= ll "TEXT")
+      (ssdel (ssname ss k) ss) (setq k (1+ k)))
+  )
+)
+
+
+;;=====================================================================
+;  중심선 그리기
+;    * 원 또는 아크의 중심선 그리기
+;    * 사각형(폴리라인 구성)의 중심선 그리기
+;  
+;  Modify : - 중심선 연장 길이 설정 기능 추가 by nadau (2009.08.03)
+;
+
+
+(defun c:cent(/ os ss k ent elist plist VtxList cenp rad po1 po2 po3 po4 dam ext la cenx ceny dix diy plusc plusx plusy paa)
+
+  (setvar "cmdecho" 0)   
+  (setq os (getvar "osmode") )  ; Current Osnap Setting Save   
+  (prompt "\n ** Draw Center Line for Circle or Arc or Rectangle(Polyline) ** \n")
+   
+  (setq ss (ssget '((0 . "circle,arc,LWPOLYLINE"))))
+  
+  (if (/= ss nil) (progn
+  
+  (setq paa (getint "\nInput length to extend the center line <10>: " ))
+  (if (= paa nil) (setq paa 10))
+  (if (and (>= paa 0) (<= paa 100) ) (progn
+
+
+  (setq k 0)
+  (setvar "osmode" 0) 
+  (command "undo" "be") 
+
+  (repeat (sslength ss)
+   (setq ent (ssname ss k))
+   (setq elist (entget ent))  
+   
+   (if (/= (cdr (assoc 0 elist)) "LWPOLYLINE") (progn
+   
+   (setq cenp (cdr (assoc 10 elist))) 
+   (setq rad (cdr (assoc 40 elist)))
+   (setq dam (* 2 rad)
+         plusc (* (/ dam 2) (/ paa 100.0) )
+         ext (+ plusc rad)
+   ); end setq
+   
+   (setq po1 (polar cenp pi ext) 
+         po2 (polar cenp 0 ext)    
+         po3 (polar cenp (/ pi 2) ext) 
+         po4 (polar cenp (+ (/ pi 2) pi) ext) 
+   ); end setq 
+   
+  ); end progn
+  
+  (progn
+      (setq VtxList (GetPolyVtx elist)
+          plist (getxy VtxList)
+          cenx (/ (+ xmin xmax) 2)
+          ceny (/ (+ ymin ymax) 2)
+          dix (/ (- xmax xmin) 2)
+          diy (/ (- ymax ymin) 2)
+          cen (list cenx ceny)
+          ); end setq
+    (setq plusx (* dix (/ paa 100.0))
+          plusy (* diy (/ paa 100.0)))
+    (setq po1 (polar cen pi (+ dix plusx))
+          po2 (polar cen 0 (+ dix plusx))
+          po3 (polar cen (+ (/ pi 2) pi) (+ diy plusy))
+          po4 (polar cen (/ pi 2) (+ diy plusy)))
+  ); end progn
+  
+  ); end if
+  
+   (DrawCenterLine po1 po2 po3 po4)
+   (setq k (+ 1 k)) 
+  );repeat 
+
+   (command "undo" "e")
+   (setvar "osmode" os)
+  ); end progn
+  
+  (progn (prompt "\n입력 가능 영역은 [0 ~ 100]입니다.\n")
+  );end progn
+  ); end if
+  ); end progn
+  ); end if
+  (princ)
+) ;defun end
+
+
+;
+; [[[ SubRoutine ]]]
+
+(defun DrawCenterLine(p1 p2 p3 p4 / cla)
+   (setq cla (getvar "clayer"))  ; Current Layer Setting Save
+   (command "layer" "s" "1" "")   ;  <-중심선 레이어로 일시적 변경 (이름 변경 필요)
+   (command "line" p1 p2 "")
+   (command "line" p3 p4 "")
+   (setvar "clayer" cla) ; 기억했던 레이어로 되돌림    
+)
+
+
+(defun getxy(vtxlist) ; 피라인의각 포인트를 좌표추출
+   (setq p1 (car vtxlist)
+         p2 (cadr vtxlist)
+         p3 (caddr vtxlist)
+            p4 (cadddr vtxlist))
+   (setq 1x (car p1) 1y (cadr p1)
+         2x (car p2) 2y (cadr p2)
+         3x (car p3) 3y (cadr p3)
+         4x (car p4) 4y (cadr p4))
+   (setq xmax (max 1x 2x 3x 4x)
+         xmin (min 1x 2x 3x 4x))
+   (setq ymax (max 1y 2y 3y 4y)
+         ymin (min 1y 2y 3y 4y))
+   (setq pa (list xmin ymin) ; 왼쪽 하단점
+         pb (list xmax ymin) ; 오른쪽 하단점
+         pc (list xmin ymax) ; 왼쪽 상단
+         pd (list xmax ymax)) ; 왼쪽 상단
+)
+
+(defun GetPolyVtx(EntList)
+  (setq VtxList '())
+  (foreach x EntList
+   (if (= (car x) 10)
+    (setq VtxList (append VtxList (list (cdr x))))
+   )
+  ) VtxList
+)
+
+;;
+;; [[[ End SubRoutine ]]]
+
+
+;; A4 size 연속 출력
+
+(setq plotername "SINDOH D410 Series PCL"); 출력할 프린터이름
+(setq ctbname "wsyang.ctb") ; 출력할 CTB 종류
+(setq papername "A4") ; 용지 크기
+
+(defun c:ppp()
+  (setq pt1 (getpoint "click left corner\n"))
+  (setq cnt 0)
+  (setq num (getint "print number : \n"))       ; 인쇄페이지 수 넣기
+
+  (while (< cnt num)
+    (setq x1 (car pt1))
+    (setq y1 (cadr pt1))
+    (setq x2 (+ x1 21000))      ; A4 가로크기
+    (setq y2 (+ y1 29700))      ; A4 세로크기
+    (setq pt2 (list x2 y2 0.0)) 
+
+    (command "-plot"
+             "y"              ; 상세한 플롯 구성?
+             " "              ; 플롯 배치 이름 ? <모형>
+             plotername       
+             papername
+             "M"              ; 단위 입력<인치, 밀리미터>
+             "P"              ; 세로, 가로
+             "N"              ; 위아래 뒤집어?
+             "W"              ; 플롯 영역<윈도우>
+             pt1              ; 윈도우 왼쪽아래 좌표
+             pt2                 ; 오른쪽 위 좌표
+             "F"              ; 축적<맞춤(F)>
+             "C"              ; 플롯 간격띄우기<중심(c)>
+             "Y"              ; 플롯 스타일로 플롯?
+             ctbname        
+             "Y"              ; 선 가중치로 플롯?
+             "A"              ;음영플롯설정 / 표시되는 대로(A)/와이어프레임(W)/숨김(H)/뷰 스타일(V)/렌더(R)
+             "N"              ;플롯출력을 파일로
+             "N"              ;페이지설정 저장
+             "Y"              ;플롯진행
+    )  
+
+    ; 다음 시작점 설정하기
+    (setq x1 (car pt1))
+    (setq y1 (cadr pt1))
+    (setq x2 (+ x1 21000))
+    (setq pt1 (list x2 y1 0.0)) 
+
+    (setq cnt (1+ cnt))
+  )
+) 
