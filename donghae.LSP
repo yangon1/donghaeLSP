@@ -65,7 +65,7 @@
 
 (defun dtr (a)(* pi (/ a 180.0)))
 
-(defun c:LR(/ k ss1 ss2 ed1 ent stp edp ang1 en2 ed2)
+(defun c:AR(/ k ss1 ss2 ed1 ent stp edp ang1 en2 ed2)
 ;->*error* start
  (defun *error* (msg)(princ "error: ")(princ msg)
  (redraw (car ss1) 4)
@@ -117,72 +117,72 @@ VtxList
 ;//-----------------------------------------------------        
 ; 눈금 표시하는건데 안씀.
 (defun c:rer (/ _Line _Text e len ang  cp sp ep gap wid n lp txp txh)
-	(defun _Line (p1 p2)
-	  (entmakex (list (cons 0 "LINE")
-	                  (cons 10 p1)
-	                  (cons 11 p2))))
-																		
-	(defun _Text (pt hgt str j j1)
-	  (entmakex (list (cons 0 "TEXT")
-	                  (cons 10  pt)
-																			(cons 11 pt)
-	                  (cons 40 hgt)
-																			(cons 72 j)
-																			(cons 73 j1)
-	                  (cons 1  str))))
-																		
- 	(setq txh (getvar 'Textsize))		;; txh 문자크기입니다.					
+    (defun _Line (p1 p2)
+      (entmakex (list (cons 0 "LINE")
+                      (cons 10 p1)
+                      (cons 11 p2))))
+                                                                        
+    (defun _Text (pt hgt str j j1)
+      (entmakex (list (cons 0 "TEXT")
+                      (cons 10  pt)
+                                                                            (cons 11 pt)
+                      (cons 40 hgt)
+                                                                            (cons 72 j)
+                                                                            (cons 73 j1)
+                      (cons 1  str))))
+                                                                        
+    (setq txh (getvar 'Textsize))       ;; txh 문자크기입니다.                 
 
- 	(setq e(entget(car(entsel "\n눈금을 표시할 라인 선택:"))))
-	(setq a10 (cdr(assoc 10 e)) a11 (cdr(assoc 11 e)))
-	(setq len(distance a10 a11) ang(angle a10 a11))
-	(if (or (= ang 0.0)(= ang pi))
-	     (progn (if (< (car a10)(car a11))(setq sp a10)(setq sp a11)))
-	     (progn (if (< (cadr a10)(cadr a11))(setq sp a10)(setq sp a11)))
-	)
-	
-	(setq divider (getint "\nEnter divider:"))
-	; (princ divider)
- 	(setq cp sp)
-	(setq gap (/ len divider)  	;; gap 눈금 간격
-	        n 0  
-			wid 0 
-			lh1 30     ;; lh1 작은눈금
-			lh2 30     ;; lh2 큰눈금
-			tx1 50     ;; tx1 텍스트 정렬점(라인에서 떨어지는 간격)
-	)
-	; princ("")
-	(repeat(1+ (fix (/ len gap))) 
-		(cond 
-			((or (= ang 0.0)(= ang pi))
-	   			; (if (equal 0 (rem n 5)) (setq lp (polar cp(- ang 1.5708) lh2))(setq lp (polar cp (- ang 1.5708) lh1)))
-			)
-			( t
-	    		; (if (equal 0 (rem n 5)) (setq lp (polar cp(- ang 1.5708) lh2))(setq lp (polar cp (- ang 1.5708) lh1)))
-			)		
-		)	
-		(_LIne cp lp)
-		(cond 
-			((or (= ang 0.0)(= ang pi))
-	   			(if (equal 0 (rem n 5)) (setq lp (polar cp(+ ang 1.5708) lh2))(setq lp (polar cp (+ ang 1.5708) lh1)))
-	     		(setq txp(polar cp (+ ang 4.71239) tx1))	; 텍스트 그리기	
-				(_Text  txp txh (itoa n) 1 3)
-			)
-			( t
-	    		(if (equal 0 (rem n 5)) (setq lp (polar cp(+ ang 1.5708) lh2))(setq lp (polar cp (+ ang 1.5708) lh1)))
-	    		(setq txp(polar cp (+ ang 4.71239) tx1))	; 텍스트 그리기		
-				(_Text  txp txh (itoa n) 0 2)
-			)		
-		)	
-		(_LIne cp lp)
-		(setq n(1+ n))
-		(setq wid(+ wid gap))
-		(setq len(- len gap))
-		(setq cp(polar cp ang gap))
-	)
-	(princ)
+    (setq e(entget(car(entsel "\n눈금을 표시할 라인 선택:"))))
+    (setq a10 (cdr(assoc 10 e)) a11 (cdr(assoc 11 e)))
+    (setq len(distance a10 a11) ang(angle a10 a11))
+    (if (or (= ang 0.0)(= ang pi))
+         (progn (if (< (car a10)(car a11))(setq sp a10)(setq sp a11)))
+         (progn (if (< (cadr a10)(cadr a11))(setq sp a10)(setq sp a11)))
+    )
+    
+    (setq divider (getint "\nEnter divider:"))
+    ; (princ divider)
+    (setq cp sp)
+    (setq gap (/ len divider)   ;; gap 눈금 간격
+            n 0  
+            wid 0 
+            lh1 30     ;; lh1 작은눈금
+            lh2 30     ;; lh2 큰눈금
+            tx1 50     ;; tx1 텍스트 정렬점(라인에서 떨어지는 간격)
+    )
+    ; princ("")
+    (repeat(1+ (fix (/ len gap))) 
+        (cond 
+            ((or (= ang 0.0)(= ang pi))
+                ; (if (equal 0 (rem n 5)) (setq lp (polar cp(- ang 1.5708) lh2))(setq lp (polar cp (- ang 1.5708) lh1)))
+            )
+            ( t
+                ; (if (equal 0 (rem n 5)) (setq lp (polar cp(- ang 1.5708) lh2))(setq lp (polar cp (- ang 1.5708) lh1)))
+            )       
+        )   
+        (_LIne cp lp)
+        (cond 
+            ((or (= ang 0.0)(= ang pi))
+                (if (equal 0 (rem n 5)) (setq lp (polar cp(+ ang 1.5708) lh2))(setq lp (polar cp (+ ang 1.5708) lh1)))
+                (setq txp(polar cp (+ ang 4.71239) tx1))    ; 텍스트 그리기   
+                (_Text  txp txh (itoa n) 1 3)
+            )
+            ( t
+                (if (equal 0 (rem n 5)) (setq lp (polar cp(+ ang 1.5708) lh2))(setq lp (polar cp (+ ang 1.5708) lh1)))
+                (setq txp(polar cp (+ ang 4.71239) tx1))    ; 텍스트 그리기       
+                (_Text  txp txh (itoa n) 0 2)
+            )       
+        )   
+        (_LIne cp lp)
+        (setq n(1+ n))
+        (setq wid(+ wid gap))
+        (setq len(- len gap))
+        (setq cp(polar cp ang gap))
+    )
+    (princ)
 )
-																		                   
+                                                                                           
 ;//-----------------------------------------------------
 ;;;=======================[ BreakObjects.lsp ]==============================
 
@@ -631,46 +631,17 @@ VtxList
 ;;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-
-;;===============================================
-;;   Break all objects selected with each other  
-;;===============================================
-(defun c:BreakAll (/ cmd ss NewEnts AllEnts tmp)
-
-  (command "_.undo" "_begin")
-  (setq cmd (getvar "CMDECHO"))
-  (setvar "CMDECHO" 0)
-  (or Bgap (setq Bgap 0)) ; default
-  (initget 4) ; no negative numbers
-  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
-    (setq Bgap tmp)
-  )
-  ;;  get objects to break
-  (prompt "\nSelect objects to break with each other & press enter: ")
-  (if (setq ss (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
-     (setq NewEnts (Break_with ss ss nil Bgap) ; ss2break ss2breakwith (flag nil = not to break with self)
-           ; AllEnts (append NewEnts (vl-remove-if 'listp (mapcar 'cadr (ssnamex ss)))
-           )
-  )
-  (setvar "CMDECHO" cmd)
-  (command "_.undo" "_end")
-  (princ)
-)
-
-
 ;;===========================================
 ;;  Break a single object with other objects 
 ;;===========================================
-(defun c:bb (/ cmd ss1 ss2 tmp)
+(defun c:BB (/ cmd ss1 ss2 tmp)
 
   (command "_.undo" "_begin")
   (setq cmd (getvar "CMDECHO"))
   (setvar "CMDECHO" 0)
   (or Bgap (setq Bgap 0)) ; default
   (initget 4) ; no negative numbers
-  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
-    (setq Bgap tmp)
-  )
+  
 
   ;;  get objects to break
   (prompt "\nSelect single object to break: ")
@@ -690,16 +661,15 @@ VtxList
 ;;==========================================
 ;;  Break many objects with a single object 
 ;;==========================================
-(defun c:bw (/ cmd ss1 ss2 tmp)
+(defun c:BW (/ cmd ss1 ss2 tmp)
 
   (command "_.undo" "_begin")
   (setq cmd (getvar "CMDECHO"))
   (setvar "CMDECHO" 0)
   (or Bgap (setq Bgap 0)) ; default
   (initget 4) ; no negative numbers
-  (if (setq tmp (getdist (strcat "\nEnter Break Gap.<"(rtos Bgap)"> ")))
-    (setq Bgap tmp)
-  )
+
+
   ;;  get objects to break
   (prompt "\nSelect object(s) to break & press enter: ")
   (if (and (setq ss1 (ssget '((0 . "LINE,ARC,SPLINE,LWPOLYLINE,POLYLINE,CIRCLE,ELLIPSE"))))
@@ -722,7 +692,7 @@ VtxList
 ;//-----------------------------------------------------
 ; 글자 정렬 
 ;//-----------------------------------------------------
-(defun C:RRH(/ ents nent ypnt count ent old10 old11 old72 new10 new11)
+(defun C:TH(/ ents nent ypnt count ent old10 old11 old72 new10 new11)
 (setq ents (ssget))
 (setq nent (sslength ents))
 (setq ypnt (getpoint "\nPick Point: "))
@@ -752,7 +722,7 @@ VtxList
 (princ)
 ) ;of defun
 
-(defun C:RRV(/ ents nent ans w72 xpnt count ent old10 old11 old72 new10 new11 new72)
+(defun C:TV(/ ents nent ans w72 xpnt count ent old10 old11 old72 new10 new11 new72)
 (setq ents (ssget))
 (setq nent (sslength ents))
 (initget "Left Middle Right")                    ;
@@ -805,7 +775,7 @@ VtxList
 ; 중복 선 정리 
 ;//-----------------------------------------------------
 ;더블 텍스트 포인트 라인 지우는 리습
-(defun C:dut() (DoubleEntity_Delete))
+(defun C:DDT() (DoubleEntity_Delete))
 (defun DoubleEntity_Delete( / ss ssdup ct len e eb pt lay ang sty hgt str obj obj_list)
  (setq obj_list(list))
  (princ "\nSelect text objects.") (setq ss (ssget))
@@ -863,7 +833,7 @@ VtxList
 
 ;;=====================================================================
 ;  원, 아크, 사각형(Polyline) 의 중심선 그리기
-(defun c:cent(/ os ss k ent elist plist VtxList cenp rad po1 po2 po3 po4 dam ext la cenx ceny dix diy plusc plusx plusy paa)
+(defun c:CENT(/ os ss k ent elist plist VtxList cenp rad po1 po2 po3 po4 dam ext la cenx ceny dix diy plusc plusx plusy paa)
 
   (setvar "cmdecho" 0)   
   (setq os (getvar "osmode") )  ; Current Osnap Setting Save   
@@ -1046,7 +1016,7 @@ VtxList
    )
 )
 
-(defun c:bx(/ p1 p2 p3 p4)
+(defun c:BX(/ p1 p2 p3 p4)
   (draw)
   (command "pline" p1 p3 p2 p4 "c")
   (command "line" p1 p2 "")
