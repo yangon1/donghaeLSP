@@ -1,60 +1,94 @@
-;//-----------------------------------------------------
+﻿;//-----------------------------------------------------
 ; LINE, COLOR, STYLE
-(defun c:r1() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "CONTINUOUS" "") )
-(defun c:r2() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L2" "") )
-(defun c:r3() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L3" "") )
-(defun c:r4() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L4" "") )
-(defun c:r5() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L5" "") )
-(defun c:r6() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L6" "") )
-(defun c:r7() (setq se (ssget))(command "change" se "" "p" "c" 1 "lt" "L7" "") )
+(defun c:r1() (setq se (ssget)) (command "change" se "" "p" "c" 1 "lt" "CONTINUOUS" "") )
+(defun c:r2() (setq se (ssget)) (command "change" se "" "p" "c" 1 "lt" "L2" "") )
+(defun c:r3() (setq se (ssget)) (command "change" se "" "p" "c" 1 "lt" "L3" "") )
+(defun c:r4() (setq se (ssget)) (command "change" se "" "p" "c" 1 "lt" "L4" "") )
+(defun c:r5() (setq se (ssget)) (command "change" se "" "p" "c" 1 "lt" "L5" "") )
+(defun c:r6() (setq se (ssget)) (command "change" se "" "p" "c" 1 "lt" "L6" "") )
+(defun c:r7() (setq se (ssget)) (command "change" se "" "p" "c" 1 "lt" "L7" "") )
+ 
+(defun c:y1() (setq se (ssget)) (command "change" se "" "p" "c" 2 "lt" "CONTINUOUS" "") )
+(defun c:y2() (setq se (ssget)) (command "change" se "" "p" "c" 2 "lt" "L2" "") )
+(defun c:y3() (setq se (ssget)) (command "change" se "" "p" "c" 2 "lt" "L3" "") )
+(defun c:y4() (setq se (ssget)) (command "change" se "" "p" "c" 2 "lt" "L4" "") )
+(defun c:y5() (setq se (ssget)) (command "change" se "" "p" "c" 2 "lt" "L5" "") )
+(defun c:y6() (setq se (ssget)) (command "change" se "" "p" "c" 2 "lt" "L6" "") )
+(defun c:y7() (setq se (ssget)) (command "change" se "" "p" "c" 2 "lt" "L7" "") )
+ 
+(defun c:g1() (setq se (ssget)) (command "change" se "" "p" "c" 3 "lt" "CONTINUOUS" "") )
+(defun c:g2() (setq se (ssget)) (command "change" se "" "p" "c" 3 "lt" "L2" "") )
+(defun c:g3() (setq se (ssget)) (command "change" se "" "p" "c" 3 "lt" "L3" "") )
+(defun c:g4() (setq se (ssget)) (command "change" se "" "p" "c" 3 "lt" "L4" "") )
+(defun c:g5() (setq se (ssget)) (command "change" se "" "p" "c" 3 "lt" "L5" "") )
+(defun c:g6() (setq se (ssget)) (command "change" se "" "p" "c" 3 "lt" "L6" "") )
+(defun c:g7() (setq se (ssget)) (command "change" se "" "p" "c" 3 "lt" "L7" "") )
+ 
+(defun c:sb1() (setq se (ssget) )(command "change" se "" "p" "c" 4 "lt" "CONTINUOUS" "") )
+(defun c:sb2() (setq se (ssget) )(command "change" se "" "p" "c" 4 "lt" "L2" "") )
+(defun c:sb3() (setq se (ssget) )(command "change" se "" "p" "c" 4 "lt" "L3" "") )
+(defun c:sb4() (setq se (ssget) )(command "change" se "" "p" "c" 4 "lt" "L4" "") )
+(defun c:sb5() (setq se (ssget) )(command "change" se "" "p" "c" 4 "lt" "L5" "") )
+(defun c:sb6() (setq se (ssget) )(command "change" se "" "p" "c" 4 "lt" "L6" "") )
+(defun c:sb7() (setq se (ssget) )(command "change" se "" "p" "c" 4 "lt" "L7" "") )
+ 
+(defun c:b1() (setq se (ssget)) (command "change" se "" "p" "c" 5 "lt" "CONTINUOUS" "") )
+(defun c:b2() (setq se (ssget)) (command "change" se "" "p" "c" 5 "lt" "L2" "") )
+(defun c:b3() (setq se (ssget)) (command "change" se "" "p" "c" 5 "lt" "L3" "") )
+(defun c:b4() (setq se (ssget)) (command "change" se "" "p" "c" 5 "lt" "L4" "") )
+(defun c:b5() (setq se (ssget)) (command "change" se "" "p" "c" 5 "lt" "L5" "") )
+(defun c:b6() (setq se (ssget)) (command "change" se "" "p" "c" 5 "lt" "L6" "") )
+(defun c:b7() (setq se (ssget)) (command "change" se "" "p" "c" 5 "lt" "L7" "") )
+ 
+(defun c:p1() (setq se (ssget)) (command "change" se "" "p" "c" 6 "lt" "CONTINUOUS" "") )
+(defun c:p2() (setq se (ssget)) (command "change" se "" "p" "c" 6 "lt" "L2" "") )
+(defun c:p3() (setq se (ssget)) (command "change" se "" "p" "c" 6 "lt" "L3" "") )
+(defun c:p4() (setq se (ssget)) (command "change" se "" "p" "c" 6 "lt" "L4" "") )
+(defun c:p5() (setq se (ssget)) (command "change" se "" "p" "c" 6 "lt" "L5" "") )
+(defun c:p6() (setq se (ssget)) (command "change" se "" "p" "c" 6 "lt" "L6" "") )
+(defun c:p7() (setq se (ssget)) (command "change" se "" "p" "c" 6 "lt" "L7" "") )
+ 
+(defun c:w1() (setq se (ssget)) (command "change" se "" "p" "c" 7 "lt" "CONTINUOUS" "") )
+(defun c:w2() (setq se (ssget)) (command "change" se "" "p" "c" 7 "lt" "L2" "") )
+(defun c:w3() (setq se (ssget)) (command "change" se "" "p" "c" 7 "lt" "L3" "") )
+(defun c:w4() (setq se (ssget)) (command "change" se "" "p" "c" 7 "lt" "L4" "") )
+(defun c:w5() (setq se (ssget)) (command "change" se "" "p" "c" 7 "lt" "L5" "") )
+(defun c:w6() (setq se (ssget)) (command "change" se "" "p" "c" 7 "lt" "L6" "") )
+(defun c:w7() (setq se (ssget)) (command "change" se "" "p" "c" 7 "lt" "L7" "") )
 
-(defun c:y1() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "CONTINUOUS" "") )
-(defun c:y2() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "L2" "") )
-(defun c:y3() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "L3" "") )
-(defun c:y4() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "L4" "") )
-(defun c:y5() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "L5" "") )
-(defun c:y6() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "L6" "") )
-(defun c:y7() (setq se (ssget))(command "change" se "" "p" "c" 2 "lt" "L7" "") )
+;//-----------------------------------------------------
+; 선 축척 변경 연속
+(defun c:sv(/ scalevalue scaleobj)
+	(setq scalevalue (getreal "\nInput Scale value : "))
+	(setq scaleobj (ssget ":s"))
+	(while
+		(/= scaleobj nil)
+		(command "chprop" scaleobj "" "s" scalevalue "")	
+		(setq scaleobj (ssget ":s"))
+	)
+	(princ)
+)
 
-(defun c:g1() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "CONTINUOUS" "") )
-(defun c:g2() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "L2" "") )
-(defun c:g3() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "L3" "") )
-(defun c:g4() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "L4" "") )
-(defun c:g5() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "L5" "") )
-(defun c:g6() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "L6" "") )
-(defun c:g7() (setq se (ssget))(command "change" se "" "p" "c" 3 "lt" "L7" "") )
+;//-----------------------------------------------------
+; 선 축척 변경
+(defun c:s1() (setq se (ssget)) (command "change" se "" "p" "s" 1 "") (princ))
+(defun c:s2() (setq se (ssget)) (command "change" se "" "p" "s" 2 "") (princ))
+(defun c:s3() (setq se (ssget)) (command "change" se "" "p" "s" 3 "") (princ))
+(defun c:s4() (setq se (ssget)) (command "change" se "" "p" "s" 4 "") (princ))
+(defun c:s5() (setq se (ssget)) (command "change" se "" "p" "s" 5 "") (princ))
+(defun c:s6() (setq se (ssget)) (command "change" se "" "p" "s" 6 "") (princ))
+(defun c:s7() (setq se (ssget)) (command "change" se "" "p" "s" 7 "") (princ))
+(defun c:s8() (setq se (ssget)) (command "change" se "" "p" "s" 8 "") (princ))
+(defun c:s9() (setq se (ssget)) (command "change" se "" "p" "s" 9 "") (princ))
 
-(defun c:sb1() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "CONTINUOUS" "") )
-(defun c:sb2() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "L2" "") )
-(defun c:sb3() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "L3" "") )
-(defun c:sb4() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "L4" "") )
-(defun c:sb5() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "L5" "") )
-(defun c:sb6() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "L6" "") )
-(defun c:sb7() (setq se (ssget))(command "change" se "" "p" "c" 4 "lt" "L7" "") )
+;//-----------------------------------------------------
+; XLV, XLH
+(defun c:XV() (command "xline" "v" ) (princ))
+(defun c:XH() (command "xline" "h" ) (princ))
 
-(defun c:b1() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "CONTINUOUS" "") )
-(defun c:b2() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "L2" "") )
-(defun c:b3() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "L3" "") )
-(defun c:b4() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "L4" "") )
-(defun c:b5() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "L5" "") )
-(defun c:b6() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "L6" "") )
-(defun c:b7() (setq se (ssget))(command "change" se "" "p" "c" 5 "lt" "L7" "") )
 
-(defun c:p1() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "CONTINUOUS" "") )
-(defun c:p2() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "L2" "") )
-(defun c:p3() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "L3" "") )
-(defun c:p4() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "L4" "") )
-(defun c:p5() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "L5" "") )
-(defun c:p6() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "L6" "") )
-(defun c:p7() (setq se (ssget))(command "change" se "" "p" "c" 6 "lt" "L7" "") )
 
-(defun c:w1() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "CONTINUOUS" "") )
-(defun c:w2() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "L2" "") )
-(defun c:w3() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "L3" "") )
-(defun c:w4() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "L4" "") )
-(defun c:w5() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "L5" "") )
-(defun c:w6() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "L6" "") )
-(defun c:w7() (setq se (ssget))(command "change" se "" "p" "c" 7 "lt" "L7" "") )
+
 
 ;//-----------------------------------------------------
 
@@ -114,74 +148,6 @@
 VtxList
 )
 
-;//-----------------------------------------------------        
-; 눈금 표시하는건데 안씀.
-(defun c:rer (/ _Line _Text e len ang  cp sp ep gap wid n lp txp txh)
-    (defun _Line (p1 p2)
-      (entmakex (list (cons 0 "LINE")
-                      (cons 10 p1)
-                      (cons 11 p2))))
-                                                                        
-    (defun _Text (pt hgt str j j1)
-      (entmakex (list (cons 0 "TEXT")
-                      (cons 10  pt)
-                                                                            (cons 11 pt)
-                      (cons 40 hgt)
-                                                                            (cons 72 j)
-                                                                            (cons 73 j1)
-                      (cons 1  str))))
-                                                                        
-    (setq txh (getvar 'Textsize))       ;; txh 문자크기입니다.                 
-
-    (setq e(entget(car(entsel "\n눈금을 표시할 라인 선택:"))))
-    (setq a10 (cdr(assoc 10 e)) a11 (cdr(assoc 11 e)))
-    (setq len(distance a10 a11) ang(angle a10 a11))
-    (if (or (= ang 0.0)(= ang pi))
-         (progn (if (< (car a10)(car a11))(setq sp a10)(setq sp a11)))
-         (progn (if (< (cadr a10)(cadr a11))(setq sp a10)(setq sp a11)))
-    )
-    
-    (setq divider (getint "\nEnter divider:"))
-    ; (princ divider)
-    (setq cp sp)
-    (setq gap (/ len divider)   ;; gap 눈금 간격
-            n 0  
-            wid 0 
-            lh1 30     ;; lh1 작은눈금
-            lh2 30     ;; lh2 큰눈금
-            tx1 50     ;; tx1 텍스트 정렬점(라인에서 떨어지는 간격)
-    )
-    ; princ("")
-    (repeat(1+ (fix (/ len gap))) 
-        (cond 
-            ((or (= ang 0.0)(= ang pi))
-                ; (if (equal 0 (rem n 5)) (setq lp (polar cp(- ang 1.5708) lh2))(setq lp (polar cp (- ang 1.5708) lh1)))
-            )
-            ( t
-                ; (if (equal 0 (rem n 5)) (setq lp (polar cp(- ang 1.5708) lh2))(setq lp (polar cp (- ang 1.5708) lh1)))
-            )       
-        )   
-        (_LIne cp lp)
-        (cond 
-            ((or (= ang 0.0)(= ang pi))
-                (if (equal 0 (rem n 5)) (setq lp (polar cp(+ ang 1.5708) lh2))(setq lp (polar cp (+ ang 1.5708) lh1)))
-                (setq txp(polar cp (+ ang 4.71239) tx1))    ; 텍스트 그리기   
-                (_Text  txp txh (itoa n) 1 3)
-            )
-            ( t
-                (if (equal 0 (rem n 5)) (setq lp (polar cp(+ ang 1.5708) lh2))(setq lp (polar cp (+ ang 1.5708) lh1)))
-                (setq txp(polar cp (+ ang 4.71239) tx1))    ; 텍스트 그리기       
-                (_Text  txp txh (itoa n) 0 2)
-            )       
-        )   
-        (_LIne cp lp)
-        (setq n(1+ n))
-        (setq wid(+ wid gap))
-        (setq len(- len gap))
-        (setq cp(polar cp ang gap))
-    )
-    (princ)
-)
                                                                                            
 ;//-----------------------------------------------------
 ;;;=======================[ BreakObjects.lsp ]==============================
@@ -771,64 +737,6 @@ VtxList
 );of repeat
 (princ))
 
-;//-----------------------------------------------------
-; 중복 선 정리 
-;//-----------------------------------------------------
-;더블 텍스트 포인트 라인 지우는 리습
-(defun C:DDT() (DoubleEntity_Delete))
-(defun DoubleEntity_Delete( / ss ssdup ct len e eb pt lay ang sty hgt str obj obj_list)
- (setq obj_list(list))
- (princ "\nSelect text objects.") (setq ss (ssget))
-  (if ss                                       
-   (progn  
-;;중복된 엔티티 선택 
-    (princ "\nBuilding list of objects.")
-    (setq ssdup (ssadd))                      
-    (setq len (sslength ss) ct 0)                        
-     (while (< ct len)
-      (setq e (ssname ss ct))                
-      (setq eb (entget e))                   
-      (setq ct (+ ct 1)) 
-      (setq Name (cdr (assoc 0 eb)))          
-       (if (and (/= Name  "LWPOLYLINE")(/= Name  "POLYLINE"))
-        (progn
-         (cond ((= Name "LINE") (setq pt (cdr (assoc 10 eb)) lay (cdr (assoc 8 eb)))          
-          (setq ang (cdr (assoc 11 eb)) sty (cdr (assoc 7 eb)))          
-          (setq hgt (cdr (assoc 40 eb))  str (cdr (assoc 1 eb)))
-               )
-          ( T (setq pt (cdr (assoc 10 eb)) lay (cdr (assoc 8 eb)))          
-              (setq ang (cdr (assoc 50 eb)) sty (cdr (assoc 7 eb)))          
-              (setq hgt (cdr (assoc 40 eb))  str (cdr (assoc 1 eb)))
-          )
-         );cond          
-               (setq obj (list pt lay ang sty hgt str))
-                (if (not (member obj obj_list))        
-                 (setq obj_list (cons obj obj_list)) 
-                 (ssadd e ssdup)                     
-                );if
-        );progn
-       );if                                      
-     );while
-     (setq aaa obj_list)
-;;삭제될 엔티티 삭제
-   (if (> (sslength ssdup) 0)                
-    (progn (princ "\nDeleting duplicate objects.")
-     (setq len (sslength ssdup) ct 0)                
-      (while (< ct len)                      
-       (setq e (ssname ssdup ct))          
-       (setq ct (+ ct 1))                 
-       (entdel e)
-      );while
-     (princ (strcat "\nDeleted "  (itoa len)  " duplicate objects." ))
-    );progn
-    (princ "\nNo duplicates found.")       
-   );if
-
-  );progn                                            
-    (princ "\nNo text objects selected.")
- );if
-    (princ)
-);defun
 
 
 ;;=====================================================================
