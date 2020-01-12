@@ -86,7 +86,35 @@
 (defun c:XV() (command "xline" "v" ) (princ))
 (defun c:XH() (command "xline" "h" ) (princ))
 
+;//-----------------------------------------------------
+; background 레이어로 변경 
+(defun c:bgl()
+	(setq se (ssget))
+	(command "change" se "" "p" "la" "background" "")
+	(princ)
+)
 
+;//-----------------------------------------------------
+; 페이드 50으로 변경
+(defun c:F5()
+	(setq se (ssget))
+	(command "adjust" se "" "f" 50 "")
+	(princ)
+)
+
+;//-----------------------------------------------------
+; SCALE 명령 편하게
+(defun getP()
+ ; (setvar "blipmode" 0)
+   (setq p1 (getpoint "\nStart Point:"))
+   (setq p2 (getpoint "\nEnd Point:"))
+)
+
+(defun c:SCS() 
+	(getP)
+	(setq se (ssget))
+	(command "scale" se "" p1 "r" p1 p2) 
+)
 
 
 
@@ -147,8 +175,169 @@
   )
 VtxList
 )
+                                                                                 
 
-                                                                                           
+;//-----------------------------------------------------
+; 글자 정렬 
+;//-----------------------------------------------------
+(defun C:TH(/ ents nent ypnt count ent old10 old11 old72 new10 new11)
+(setq ents (ssget))
+(setq nent (sslength ents))
+(setq ypnt (getpoint "\nPick Point: "))
+(setq count 0)
+(repeat nent
+  (setq ent (entget (ssname ents count)))
+  (if (= "TEXT" (cdr (assoc 0 ent)))
+    (progn
+      (setq old10 (assoc 10 ent))                 ;竍格
+      (setq old11 (assoc 11 ent))                 ;瑂烦格
+      (setq old72 (assoc 72 ent))                 ;畞蛍各漣
+      (setq old73 (assoc 73 ent))                 ;畞虎各漣
+      (setq new10 (cons 10 (list (car (cdr old10)) (cadr ypnt))))
+      (setq new11 (cons 11 (list (car (cdr old11)) (cadr ypnt))))
+      (if (and (= (cdr old72) 0) (= (cdr old73) 0))
+        (setq ent (subst new10 old10 ent))
+        (progn
+          (setq ent (subst new11 old11 ent))
+          (setq ent (subst (cons 73 0) old73 ent))
+        ) ;of progn
+      ) ;of if
+      (entmod ent)
+    ) ;of progn
+  ) ;of if
+  (setq count (+ count 1))
+);of repeat
+(princ)
+) ;of defun
+
+(defun C:TV(/ ents nent ans w72 xpnt count ent old10 old11 old72 new10 new11 new72)
+(setq ents (ssget))
+(setq nent (sslength ents))
+(initget "Left Middle Right")                    ;
+(setq ans (getkword "\n<Left>/Middle/Right: "))
+(if (= ans nil) (setq ans "Left"))
+(cond
+  ((= ans "Left")   (setq w72 0))
+  ((= ans "Middle") (setq w72 1))
+  ((= ans "Right")  (setq w72 2))
+) ;of cond
+(setq xpnt (getpoint "\nPick Point: "))
+(setq count 0)
+(repeat nent
+  (setq ent (entget (ssname ents count)))
+  (if (= "TEXT" (cdr (assoc 0 ent)))
+    (progn
+      (setq old10 (assoc 10 ent))                 ;竍格
+      (setq old11 (assoc 11 ent))                 ;瑂烦格
+      (setq old72 (assoc 72 ent))                 ;各漣
+      (setq new10 (cons 10 (list (car xpnt) (cadr (cdr old10)))))
+      (setq new11 (cons 11 (list (car xpnt) (cadr (cdr old11)))))
+      (setq new72 (cons 72 w72))
+      (if (= (cdr old72) 0)
+        (progn                                    ; left各漣伐 墂秮
+          (if (= w72 0)
+              (setq ent (subst new10 old10 ent))
+            (progn
+               (setq new11 (cons 11 (list (car xpnt) (cadr (cdr old10)))))
+               (setq ent (subst new11 old11 ent))
+            );of progn
+          ) ;of if
+          (setq ent (subst new72 old72 ent))
+        ) ;of progn
+        (progn                                           ; left各漣贰 碼摜 墂秮
+          (if (= w72 0)
+             (setq ent (subst new10 old10 ent))
+             (setq ent (subst new11 old11 ent))
+          ) ;of if
+          (setq ent (subst new72 old72 ent))
+        ) ;of progn
+      ) ;of if
+      (entmod ent)
+    ) ;of progn
+  ) ;of if
+  (setq count (+ count 1))
+);of repeat
+(princ))
+
+
+
+
+
+
+
+;//-----------------------------------------------------
+;; A4 size 연속 출력
+(setq plotername "SINDOH D410 Series PCL"); 출력할 프린터이름
+(setq ctbname "wsyang.ctb") ; 출력할 CTB 종류
+(setq papername "A4") ; 용지 크기
+
+(defun c:ppp()
+  (setq pt1 (getpoint "click left corner\n"))
+  (setq cnt 0)
+  (setq num (getint "print number : \n"))       ; 인쇄페이지 수 넣기
+
+  (while (< cnt num)
+    (setq x1 (car pt1))
+    (setq y1 (cadr pt1))
+    (setq x2 (+ x1 21000))      ; A4 가로크기
+    (setq y2 (+ y1 29700))      ; A4 세로크기
+    (setq pt2 (list x2 y2 0.0)) 
+
+    (command "-plot"
+             "y"              ; 상세한 플롯 구성?
+             " "              ; 플롯 배치 이름 ? <모형>
+             plotername       
+             papername
+             "M"              ; 단위 입력<인치, 밀리미터>
+             "P"              ; 세로, 가로
+             "N"              ; 위아래 뒤집어?
+             "W"              ; 플롯 영역<윈도우>
+             pt1              ; 윈도우 왼쪽아래 좌표
+             pt2                 ; 오른쪽 위 좌표
+             "F"              ; 축적<맞춤(F)>
+             "C"              ; 플롯 간격띄우기<중심(c)>
+             "Y"              ; 플롯 스타일로 플롯?
+             ctbname        
+             "Y"              ; 선 가중치로 플롯?
+             "A"              ;음영플롯설정 / 표시되는 대로(A)/와이어프레임(W)/숨김(H)/뷰 스타일(V)/렌더(R)
+             "N"              ;플롯출력을 파일로
+             "N"              ;페이지설정 저장
+             "Y"              ;플롯진행
+    )  
+
+    ; 다음 시작점 설정하기
+    (setq x1 (car pt1))
+    (setq y1 (cadr pt1))
+    (setq x2 (+ x1 21000))
+    (setq pt1 (list x2 y1 0.0)) 
+
+    (setq cnt (1+ cnt))
+  )
+) 
+
+;//-----------------------------------------------------
+; DRAW HATCH
+(defun draw()
+   (setvar "blipmode" 0)
+   (setq p1 (getpoint "\nStart Point:")
+         p2 (getcorner p1 "\nCorner Point:")
+         p3 (list (car p1)(cadr p2))
+         p4 (list (car p2)(cadr p1))
+   )
+)
+
+(defun c:BX(/ p1 p2 p3 p4)
+  (draw)
+  (command "pline" p1 p3 p2 p4 "c")
+  (command "line" p1 p2 "")
+  (command "line" p3 p4 "")
+
+  (command "fillet" "p" "r" 20 (ssget))
+  (command "offset" 20)
+)
+
+
+
 ;//-----------------------------------------------------
 ;;;=======================[ BreakObjects.lsp ]==============================
 
@@ -184,7 +373,7 @@ VtxList
     ;;  return a list of objects from a selection set
     ;|  (defun ssget->vla-list (ss)
     (mapcar 'vlax-ename->vla-object (vl-remove-if 'listp (mapcar 'cadr (ssnamex ss ))))
-  )|;
+)|;
 
   (defun ssget->vla-list (ss / i ename allobj) ; this is faster, changed in ver 1.7
        (setq i -1)
@@ -652,284 +841,3 @@ VtxList
   (princ)
 )
 
-
-
-
-;//-----------------------------------------------------
-; 글자 정렬 
-;//-----------------------------------------------------
-(defun C:TH(/ ents nent ypnt count ent old10 old11 old72 new10 new11)
-(setq ents (ssget))
-(setq nent (sslength ents))
-(setq ypnt (getpoint "\nPick Point: "))
-(setq count 0)
-(repeat nent
-  (setq ent (entget (ssname ents count)))
-  (if (= "TEXT" (cdr (assoc 0 ent)))
-    (progn
-      (setq old10 (assoc 10 ent))                 ;竍格
-      (setq old11 (assoc 11 ent))                 ;瑂烦格
-      (setq old72 (assoc 72 ent))                 ;畞蛍各漣
-      (setq old73 (assoc 73 ent))                 ;畞虎各漣
-      (setq new10 (cons 10 (list (car (cdr old10)) (cadr ypnt))))
-      (setq new11 (cons 11 (list (car (cdr old11)) (cadr ypnt))))
-      (if (and (= (cdr old72) 0) (= (cdr old73) 0))
-        (setq ent (subst new10 old10 ent))
-        (progn
-          (setq ent (subst new11 old11 ent))
-          (setq ent (subst (cons 73 0) old73 ent))
-        ) ;of progn
-      ) ;of if
-      (entmod ent)
-    ) ;of progn
-  ) ;of if
-  (setq count (+ count 1))
-);of repeat
-(princ)
-) ;of defun
-
-(defun C:TV(/ ents nent ans w72 xpnt count ent old10 old11 old72 new10 new11 new72)
-(setq ents (ssget))
-(setq nent (sslength ents))
-(initget "Left Middle Right")                    ;
-(setq ans (getkword "\n<Left>/Middle/Right: "))
-(if (= ans nil) (setq ans "Left"))
-(cond
-  ((= ans "Left")   (setq w72 0))
-  ((= ans "Middle") (setq w72 1))
-  ((= ans "Right")  (setq w72 2))
-) ;of cond
-(setq xpnt (getpoint "\nPick Point: "))
-(setq count 0)
-(repeat nent
-  (setq ent (entget (ssname ents count)))
-  (if (= "TEXT" (cdr (assoc 0 ent)))
-    (progn
-      (setq old10 (assoc 10 ent))                 ;竍格
-      (setq old11 (assoc 11 ent))                 ;瑂烦格
-      (setq old72 (assoc 72 ent))                 ;各漣
-      (setq new10 (cons 10 (list (car xpnt) (cadr (cdr old10)))))
-      (setq new11 (cons 11 (list (car xpnt) (cadr (cdr old11)))))
-      (setq new72 (cons 72 w72))
-      (if (= (cdr old72) 0)
-        (progn                                    ; left各漣伐 墂秮
-          (if (= w72 0)
-              (setq ent (subst new10 old10 ent))
-            (progn
-               (setq new11 (cons 11 (list (car xpnt) (cadr (cdr old10)))))
-               (setq ent (subst new11 old11 ent))
-            );of progn
-          ) ;of if
-          (setq ent (subst new72 old72 ent))
-        ) ;of progn
-        (progn                                           ; left各漣贰 碼摜 墂秮
-          (if (= w72 0)
-             (setq ent (subst new10 old10 ent))
-             (setq ent (subst new11 old11 ent))
-          ) ;of if
-          (setq ent (subst new72 old72 ent))
-        ) ;of progn
-      ) ;of if
-      (entmod ent)
-    ) ;of progn
-  ) ;of if
-  (setq count (+ count 1))
-);of repeat
-(princ))
-
-
-
-;;=====================================================================
-;  원, 아크, 사각형(Polyline) 의 중심선 그리기
-(defun c:CENT(/ os ss k ent elist plist VtxList cenp rad po1 po2 po3 po4 dam ext la cenx ceny dix diy plusc plusx plusy paa)
-
-  (setvar "cmdecho" 0)   
-  (setq os (getvar "osmode") )  ; Current Osnap Setting Save   
-  (prompt "\n ** Draw Center Line for Circle or Arc or Rectangle(Polyline) ** \n")
-   
-  (setq ss (ssget '((0 . "circle,arc,LWPOLYLINE"))))
-  
-  (if (/= ss nil) (progn
-  
-  (setq paa (getint "\nInput length to extend the center line <10>: " ))
-  (if (= paa nil) (setq paa 10))
-  (if (and (>= paa 0) (<= paa 100) ) (progn
-
-
-  (setq k 0)
-  (setvar "osmode" 0) 
-  (command "undo" "be") 
-
-  (repeat (sslength ss)
-   (setq ent (ssname ss k))
-   (setq elist (entget ent))  
-   
-   (if (/= (cdr (assoc 0 elist)) "LWPOLYLINE") (progn
-   
-   (setq cenp (cdr (assoc 10 elist))) 
-   (setq rad (cdr (assoc 40 elist)))
-   (setq dam (* 2 rad)
-         plusc (* (/ dam 2) (/ paa 100.0) )
-         ext (+ plusc rad)
-   )
-   
-   (setq po1 (polar cenp pi ext) 
-         po2 (polar cenp 0 ext)    
-         po3 (polar cenp (/ pi 2) ext) 
-         po4 (polar cenp (+ (/ pi 2) pi) ext) 
-   )
-   
-  )
-  
-  (progn
-      (setq VtxList (GetPolyVtx elist)
-          plist (getxy VtxList)
-          cenx (/ (+ xmin xmax) 2)
-          ceny (/ (+ ymin ymax) 2)
-          dix (/ (- xmax xmin) 2)
-          diy (/ (- ymax ymin) 2)
-          cen (list cenx ceny)
-          ); end setq
-    (setq plusx (* dix (/ paa 100.0))
-          plusy (* diy (/ paa 100.0)))
-    (setq po1 (polar cen pi (+ dix plusx))
-          po2 (polar cen 0 (+ dix plusx))
-          po3 (polar cen (+ (/ pi 2) pi) (+ diy plusy))
-          po4 (polar cen (/ pi 2) (+ diy plusy)))
-  )
-  
-  ); end if
-  
-   (DrawCenterLine po1 po2 po3 po4)
-   (setq k (+ 1 k)) 
-  );repeat 
-
-   (command "undo" "e")
-   (setvar "osmode" os)
-  ); end progn
-  
-  (progn (prompt "\n입력 가능 영역은 [0 ~ 100]입니다.\n")
-  );end progn
-  ); end if
-  ); end progn
-  ); end if
-  (princ)
-) ;defun end
-
-; [[[ SubRoutine ]]]
-
-(defun DrawCenterLine(p1 p2 p3 p4 / cla)
-   (setq cla (getvar "clayer"))  ; Current Layer Setting Save
-   (command "layer" "s" "1" "")   ;  <-중심선 레이어로 일시적 변경 (이름 변경 필요)
-   (command "line" p1 p2 "")
-   (command "line" p3 p4 "")
-   (setvar "clayer" cla) ; 기억했던 레이어로 되돌림    
-)
-
-
-(defun getxy(vtxlist) ; 피라인의각 포인트를 좌표추출
-   (setq p1 (car vtxlist)
-         p2 (cadr vtxlist)
-         p3 (caddr vtxlist)
-            p4 (cadddr vtxlist))
-   (setq 1x (car p1) 1y (cadr p1)
-         2x (car p2) 2y (cadr p2)
-         3x (car p3) 3y (cadr p3)
-         4x (car p4) 4y (cadr p4))
-   (setq xmax (max 1x 2x 3x 4x)
-         xmin (min 1x 2x 3x 4x))
-   (setq ymax (max 1y 2y 3y 4y)
-         ymin (min 1y 2y 3y 4y))
-   (setq pa (list xmin ymin) ; 왼쪽 하단점
-         pb (list xmax ymin) ; 오른쪽 하단점
-         pc (list xmin ymax) ; 왼쪽 상단
-         pd (list xmax ymax)) ; 왼쪽 상단
-)
-
-(defun GetPolyVtx(EntList)
-  (setq VtxList '())
-  (foreach x EntList
-   (if (= (car x) 10)
-    (setq VtxList (append VtxList (list (cdr x))))
-   )
-  ) VtxList
-)
-
-
-
-
-
-
-
-
-
-;//-----------------------------------------------------
-;; A4 size 연속 출력
-(setq plotername "SINDOH D410 Series PCL"); 출력할 프린터이름
-(setq ctbname "wsyang.ctb") ; 출력할 CTB 종류
-(setq papername "A4") ; 용지 크기
-
-(defun c:ppp()
-  (setq pt1 (getpoint "click left corner\n"))
-  (setq cnt 0)
-  (setq num (getint "print number : \n"))       ; 인쇄페이지 수 넣기
-
-  (while (< cnt num)
-    (setq x1 (car pt1))
-    (setq y1 (cadr pt1))
-    (setq x2 (+ x1 21000))      ; A4 가로크기
-    (setq y2 (+ y1 29700))      ; A4 세로크기
-    (setq pt2 (list x2 y2 0.0)) 
-
-    (command "-plot"
-             "y"              ; 상세한 플롯 구성?
-             " "              ; 플롯 배치 이름 ? <모형>
-             plotername       
-             papername
-             "M"              ; 단위 입력<인치, 밀리미터>
-             "P"              ; 세로, 가로
-             "N"              ; 위아래 뒤집어?
-             "W"              ; 플롯 영역<윈도우>
-             pt1              ; 윈도우 왼쪽아래 좌표
-             pt2                 ; 오른쪽 위 좌표
-             "F"              ; 축적<맞춤(F)>
-             "C"              ; 플롯 간격띄우기<중심(c)>
-             "Y"              ; 플롯 스타일로 플롯?
-             ctbname        
-             "Y"              ; 선 가중치로 플롯?
-             "A"              ;음영플롯설정 / 표시되는 대로(A)/와이어프레임(W)/숨김(H)/뷰 스타일(V)/렌더(R)
-             "N"              ;플롯출력을 파일로
-             "N"              ;페이지설정 저장
-             "Y"              ;플롯진행
-    )  
-
-    ; 다음 시작점 설정하기
-    (setq x1 (car pt1))
-    (setq y1 (cadr pt1))
-    (setq x2 (+ x1 21000))
-    (setq pt1 (list x2 y1 0.0)) 
-
-    (setq cnt (1+ cnt))
-  )
-) 
-
-;//-----------------------------------------------------
-; DRAW HATCH
-(defun draw()
-   (setvar "blipmode" 0)
-   (setq p1 (getpoint "\nStart Point:")
-         p2 (getcorner p1 "\nCorner Point:")
-         p3 (list (car p1)(cadr p2))
-         p4 (list (car p2)(cadr p1))
-   )
-)
-
-(defun c:BX(/ p1 p2 p3 p4)
-  (draw)
-  (command "pline" p1 p3 p2 p4 "c")
-  (command "line" p1 p2 "")
-  (command "line" p3 p4 "")
-
-  (command "fillet" "p" "r" 20 (ssget))
-  (command "offset" 20)
-)
